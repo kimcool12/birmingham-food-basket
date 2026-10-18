@@ -2,10 +2,10 @@
 // Birmingham Food Basket - SCSS Mixins
 // ==========================================================================
 
-@use 'sass:map';
-@use 'sass:meta';
-@use 'variables' as vars;
-@use 'functions' as funcs;
+@use "sass:map";
+@use "sass:meta";
+@use "variables" as vars;
+@use "functions" as funcs;
 
 // --------------------------------------------------------------------------
 // 1. Responsive Breakpoint Mixins
@@ -19,7 +19,7 @@
     @media (min-width: $breakpoint-value) {
       @content;
     }
-  } @else if meta.type-of($breakpoint) == 'number' {
+  } @else if meta.type-of($breakpoint) == "number" {
     @media (min-width: $breakpoint) {
       @content;
     }
@@ -36,7 +36,7 @@
     @media (max-width: $breakpoint-value) {
       @content;
     }
-  } @else if meta.type-of($breakpoint) == 'number' {
+  } @else if meta.type-of($breakpoint) == "number" {
     @media (max-width: ($breakpoint - 0.02px)) {
       @content;
     }
@@ -47,8 +47,15 @@
 
 /// Media query between two breakpoints
 @mixin respond-between($lower, $upper) {
-  $min: if(map.has-key(vars.$breakpoints, $lower), map.get(vars.$breakpoints, $lower), $lower);
-  $max: if(map.has-key(vars.$breakpoints, $upper), map.get(vars.$breakpoints, $upper) - 0.02px, $upper - 0.02px);
+  $min: $lower;
+  @if map.has-key(vars.$breakpoints, $lower) {
+    $min: map.get(vars.$breakpoints, $lower);
+  }
+
+  $max: $upper - 0.02px;
+  @if map.has-key(vars.$breakpoints, $upper) {
+    $max: map.get(vars.$breakpoints, $upper) - 0.02px;
+  }
 
   @media (min-width: $min) and (max-width: $max) {
     @content;
@@ -119,21 +126,21 @@
   padding-left: $padding;
   padding-right: $padding;
 
-  @include respond-to('sm') {
+  @include respond-to("sm") {
     max-width: vars.$container-sm;
     padding-left: vars.$space-lg;
     padding-right: vars.$space-lg;
   }
-  @include respond-to('md') {
+  @include respond-to("md") {
     max-width: vars.$container-md;
   }
-  @include respond-to('lg') {
+  @include respond-to("lg") {
     max-width: vars.$container-lg;
   }
-  @include respond-to('xl') {
+  @include respond-to("xl") {
     max-width: vars.$container-xl;
   }
-  @include respond-to('xxl') {
+  @include respond-to("xxl") {
     max-width: vars.$container-xxl;
   }
 }
@@ -152,31 +159,31 @@
 
   @if $level == 1 {
     font-size: funcs.rem(28px);
-    @include respond-to('md') {
+    @include respond-to("md") {
       font-size: funcs.rem(36px);
     }
-    @include respond-to('lg') {
+    @include respond-to("lg") {
       font-size: vars.$font-size-4xl;
     }
   } @else if $level == 2 {
     font-size: funcs.rem(24px);
-    @include respond-to('md') {
+    @include respond-to("md") {
       font-size: funcs.rem(28px);
     }
-    @include respond-to('lg') {
+    @include respond-to("lg") {
       font-size: vars.$font-size-3xl;
     }
   } @else if $level == 3 {
     font-size: funcs.rem(20px);
-    @include respond-to('md') {
+    @include respond-to("md") {
       font-size: vars.$font-size-xl;
     }
-    @include respond-to('lg') {
+    @include respond-to("lg") {
       font-size: vars.$font-size-2xl;
     }
   } @else if $level == 4 {
     font-size: funcs.rem(18px);
-    @include respond-to('md') {
+    @include respond-to("md") {
       font-size: vars.$font-size-lg;
     }
   } @else if $level == 5 {
@@ -191,15 +198,15 @@
 }
 
 /// Typography preset for body copy
-@mixin body-style($size: 'base') {
+@mixin body-style($size: "base") {
   font-family: vars.$font-primary;
   color: vars.$color-text-body;
   line-height: vars.$line-height-normal;
 
-  @if $size == 'sm' {
+  @if $size == "sm" {
     font-size: vars.$font-size-sm;
     line-height: vars.$line-height-normal;
-  } @else if $size == 'lg' {
+  } @else if $size == "lg" {
     font-size: vars.$font-size-lg;
     line-height: vars.$line-height-relaxed;
   } @else {
@@ -213,22 +220,23 @@
 // --------------------------------------------------------------------------
 
 /// Elevation shadow styling
-@mixin card-shadow($elevation: 'md') {
-  @if $elevation == 'sm' {
+@mixin card-shadow($elevation: "md") {
+  @if $elevation == "sm" {
     box-shadow: vars.$shadow-sm;
-  } @else if $elevation == 'md' {
+  } @else if $elevation == "md" {
     box-shadow: vars.$shadow-md;
-  } @else if $elevation == 'lg' {
+  } @else if $elevation == "lg" {
     box-shadow: vars.$shadow-lg;
-  } @else if $elevation == 'xl' {
+  } @else if $elevation == "xl" {
     box-shadow: vars.$shadow-xl;
-  } @else if $elevation == 'hover' {
+  } @else if $elevation == "hover" {
     box-shadow: vars.$shadow-hover;
   } @else {
     box-shadow: vars.$shadow-sm;
   }
-  transition: box-shadow vars.$transition-duration-normal vars.$transition-timing-ease,
-              transform vars.$transition-duration-normal vars.$transition-timing-ease;
+  transition:
+    box-shadow vars.$transition-duration-normal vars.$transition-timing-ease,
+    transform vars.$transition-duration-normal vars.$transition-timing-ease;
 }
 
 // --------------------------------------------------------------------------
@@ -288,8 +296,9 @@
   background-clip: padding-box;
   border: 1px solid vars.$color-border-medium;
   border-radius: vars.$radius-md;
-  transition: border-color vars.$transition-duration-fast vars.$transition-timing-ease,
-              box-shadow vars.$transition-duration-fast vars.$transition-timing-ease;
+  transition:
+    border-color vars.$transition-duration-fast vars.$transition-timing-ease,
+    box-shadow vars.$transition-duration-fast vars.$transition-timing-ease;
   outline: none;
 
   &::placeholder {

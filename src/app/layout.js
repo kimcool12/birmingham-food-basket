@@ -1,4 +1,4 @@
-import "@/styles/main.scss";
+import "../styles/main.scss";
 
 export const metadata = {
   title: "Birmingham Food Basket | Fresh Local & Organic Produce",
