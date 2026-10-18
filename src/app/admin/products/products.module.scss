@@ -1,0 +1,163 @@
+.page {
+  padding: 1.5rem;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+.addLink {
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  background: #2f7d32;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 3px solid #1b4d1e;
+    outline-offset: 2px;
+  }
+}
+
+.error {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.5rem;
+  background: #fdecea;
+  color: #8a1c14;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  input,
+  select {
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #b9c2b5;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background: #fff;
+
+    &:focus-visible {
+      outline: 3px solid #2f7d32;
+      outline-offset: 1px;
+    }
+  }
+
+  input[type="search"] {
+    flex: 1 1 16rem;
+  }
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 52rem;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 0.65rem 0.6rem;
+    text-align: left;
+    border-bottom: 1px solid #dfe5dc;
+    vertical-align: middle;
+  }
+}
+
+.size {
+  display: block;
+  color: #5a5a5a;
+  font-size: 0.85rem;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid currentColor;
+}
+
+.AVAILABLE {
+  color: #1b5e20;
+}
+
+.LIMITED {
+  color: #8a5a00;
+}
+
+.UNAVAILABLE {
+  color: #8a1c14;
+}
+
+.inactive {
+  opacity: 0.6;
+}
+
+.inline {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0.35rem 0.35rem 0;
+
+  select {
+    padding: 0.4rem 0.5rem;
+    border: 1px solid #b9c2b5;
+    border-radius: 0.5rem;
+    background: #fff;
+  }
+}
+
+.btn,
+.table button,
+.filters button {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid #2f7d32;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #1b4d1e;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 3px solid #1b4d1e;
+    outline-offset: 2px;
+  }
+}
+
+.danger {
+  border-color: #8a1c14 !important;
+  color: #8a1c14 !important;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: #5a5a5a;
+}
