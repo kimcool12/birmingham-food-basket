@@ -1,0 +1,219 @@
+// ==========================================================================
+// Birmingham Food Basket - Admin Sidebar Component
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  background-color: $color-white;
+  border-right: 1px solid $color-border;
+  display: flex;
+  flex-direction: column;
+  z-index: $z-fixed;
+  transition: transform $transition-duration-normal ease,
+              width $transition-duration-normal ease;
+
+  // Mobile drawer behavior
+  @include respond-below('lg') {
+    transform: translateX(-100%);
+
+    &.is-open {
+      transform: translateX(0);
+      box-shadow: $shadow-xl;
+    }
+  }
+
+  // Brand Header
+  &__header {
+    height: 4.5rem;
+    padding: 0 $space-lg;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $color-border-light;
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: $space-xs;
+      font-family: $font-heading;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-lg;
+      color: $color-primary-dark;
+      text-decoration: none;
+
+      .brand-badge {
+        font-size: 0.65rem;
+        background-color: $color-primary-subtle;
+        color: $color-primary;
+        padding: 0.15rem 0.45rem;
+        border-radius: $radius-sm;
+        font-weight: $font-weight-bold;
+        text-transform: uppercase;
+      }
+    }
+
+    .sidebar-close {
+      @include respond-to('lg') {
+        display: none;
+      }
+    }
+  }
+
+  // Navigation Items
+  &__nav {
+    flex: 1 1 auto;
+    padding: $space-lg $space-md;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2xs;
+
+    .nav-section-title {
+      font-size: 0.6875rem;
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: $color-text-light;
+      padding: $space-xs $space-sm $space-3xs;
+      margin-top: $space-sm;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  // Navigation Link / Row
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    padding: $space-sm $space-md;
+    border-radius: $radius-md;
+    font-family: $font-heading;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-body;
+    text-decoration: none;
+    transition: all $transition-duration-fast ease;
+    position: relative;
+
+    .item-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      flex-shrink: 0;
+      color: $color-text-light;
+      transition: color $transition-duration-fast ease;
+    }
+
+    .item-badge {
+      margin-left: auto;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+    }
+
+    &:hover {
+      background-color: $color-bg-light;
+      color: $color-primary;
+
+      .item-icon {
+        color: $color-primary;
+      }
+    }
+
+    &.active,
+    &.is-active {
+      background-color: $color-primary-subtle;
+      color: $color-primary-dark;
+      font-weight: $font-weight-semibold;
+
+      .item-icon {
+        color: $color-primary;
+      }
+
+      // Left active indicator border/bar
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 20%;
+        height: 60%;
+        width: 3px;
+        background-color: $color-primary;
+        border-top-right-radius: $radius-xs;
+        border-bottom-right-radius: $radius-xs;
+      }
+    }
+  }
+
+  // Footer / Current Admin User Summary
+  &__footer {
+    padding: $space-md $space-lg;
+    border-top: 1px solid $color-border-light;
+    background-color: $color-bg-light;
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+
+    .admin-avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: $radius-round;
+      background-color: $color-primary;
+      color: $color-white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: $font-weight-bold;
+      flex-shrink: 0;
+    }
+
+    .admin-info {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      .admin-name {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        color: $color-text-dark;
+        @include truncate-text(1);
+      }
+
+      .admin-role {
+        font-size: $font-size-xs;
+        color: $color-text-light;
+      }
+    }
+  }
+}
+
+// Backdrop for mobile admin drawer
+.admin-sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(17, 24, 39, 0.5);
+  z-index: calc(#{$z-fixed} - 1);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $transition-duration-normal ease,
+              visibility $transition-duration-normal ease;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @include respond-to('lg') {
+    display: none;
+  }
+}

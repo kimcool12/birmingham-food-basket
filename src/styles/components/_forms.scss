@@ -1,0 +1,173 @@
+// ==========================================================================
+// Birmingham Food Basket - Form Components
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+// 1. Form Group Container
+.form-group {
+  margin-bottom: $space-md;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// 2. Form Labels
+.form-label {
+  display: inline-block;
+  margin-bottom: $space-2xs;
+  font-family: $font-heading;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-dark;
+  cursor: pointer;
+
+  .required {
+    color: $color-danger;
+    margin-left: 2px;
+  }
+}
+
+// 3. Base Text Inputs & Controls
+.form-input {
+  @include input-base;
+}
+
+// 4. Select Dropdown
+.form-select {
+  @include input-base;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232D6A4F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right $space-md center;
+  background-size: 1.15rem;
+  padding-right: $space-2xl;
+  cursor: pointer;
+
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+// 5. Textarea
+.form-textarea {
+  @include input-base;
+  min-height: 100px;
+  resize: vertical;
+}
+
+// 6. Form Feedback & Helper Messages
+.form-hint {
+  display: block;
+  margin-top: $space-2xs;
+  font-size: $font-size-xs;
+  color: $color-text-light;
+}
+
+.form-error {
+  display: flex;
+  align-items: center;
+  gap: $space-3xs;
+  margin-top: $space-2xs;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-danger;
+
+  &::before {
+    content: '⚠';
+    display: inline-block;
+  }
+}
+
+// 7. Error State Modifiers
+.form-group.has-error,
+.form-input.is-invalid,
+.form-select.is-invalid,
+.form-textarea.is-invalid {
+  border-color: $color-danger !important;
+
+  &:focus {
+    box-shadow: $shadow-outline-danger !important;
+  }
+}
+
+// Success State Modifiers
+.form-group.has-success,
+.form-input.is-valid,
+.form-select.is-valid,
+.form-textarea.is-valid {
+  border-color: $color-success !important;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25) !important;
+  }
+}
+
+// 8. Input with Icons (e.g. Search, Email, Password)
+.form-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .input-icon-left,
+  .input-icon-right {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $color-text-light;
+    pointer-events: none;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .input-icon-left {
+    left: $space-sm;
+  }
+
+  .input-icon-right {
+    right: $space-sm;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  &.has-icon-left .form-input {
+    padding-left: calc(#{$space-sm} * 2 + 1.25rem);
+  }
+
+  &.has-icon-right .form-input {
+    padding-right: calc(#{$space-sm} * 2 + 1.25rem);
+  }
+}
+
+// 9. Checkboxes and Radios
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-xs;
+  margin-bottom: $space-xs;
+  cursor: pointer;
+  user-select: none;
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.15rem;
+    accent-color: $color-primary;
+    cursor: pointer;
+  }
+
+  .form-check-label {
+    font-size: $font-size-sm;
+    color: $color-text-dark;
+    line-height: 1.4;
+  }
+}

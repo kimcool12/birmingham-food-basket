@@ -1,0 +1,262 @@
+// ==========================================================================
+// Birmingham Food Basket - Typography
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+// 1. Google Fonts Import (Inter & Poppins)
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+// 2. Base HTML & Body Typography
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+  color: $color-text-body;
+  background-color: $color-bg-light;
+}
+
+// 3. Headings
+h1,
+.h1 {
+  @include heading-style(1);
+  margin-bottom: $space-md;
+}
+
+h2,
+.h2 {
+  @include heading-style(2);
+  margin-bottom: $space-sm;
+}
+
+h3,
+.h3 {
+  @include heading-style(3);
+  margin-bottom: $space-sm;
+}
+
+h4,
+.h4 {
+  @include heading-style(4);
+  margin-bottom: $space-xs;
+}
+
+h5,
+.h5 {
+  @include heading-style(5);
+  margin-bottom: $space-xs;
+}
+
+h6,
+.h6 {
+  @include heading-style(6);
+  margin-bottom: $space-xs;
+}
+
+// 4. Paragraphs and Inline Elements
+p {
+  margin-bottom: $space-md;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+p.lead {
+  font-size: $font-size-lg;
+  line-height: $line-height-relaxed;
+  color: $color-text-dark;
+  font-weight: $font-weight-normal;
+}
+
+small,
+.text-small {
+  font-size: $font-size-sm;
+  color: $color-text-light;
+}
+
+strong,
+b {
+  font-weight: $font-weight-bold;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+code,
+pre {
+  font-family: $font-mono;
+  font-size: $font-size-sm;
+}
+
+blockquote {
+  border-left: 4px solid $color-primary;
+  padding-left: $space-md;
+  margin: $space-lg 0;
+  font-style: italic;
+  color: $color-text-muted;
+}
+
+// 5. Typography Utility Classes
+.font-heading {
+  font-family: $font-heading !important;
+}
+
+.font-body {
+  font-family: $font-primary !important;
+}
+
+.font-light {
+  font-weight: $font-weight-light !important;
+}
+
+.font-normal {
+  font-weight: $font-weight-normal !important;
+}
+
+.font-medium {
+  font-weight: $font-weight-medium !important;
+}
+
+.font-semibold {
+  font-weight: $font-weight-semibold !important;
+}
+
+.font-bold {
+  font-weight: $font-weight-bold !important;
+}
+
+// Color utilities
+.text-primary {
+  color: $color-primary !important;
+}
+
+.text-primary-dark {
+  color: $color-primary-dark !important;
+}
+
+.text-secondary {
+  color: $color-secondary !important;
+}
+
+.text-accent {
+  color: $color-accent !important;
+}
+
+.text-dark {
+  color: $color-text-dark !important;
+}
+
+.text-body {
+  color: $color-text-body !important;
+}
+
+.text-light {
+  color: $color-text-light !important;
+}
+
+.text-muted {
+  color: $color-text-muted !important;
+}
+
+.text-white {
+  color: $color-white !important;
+}
+
+.text-success {
+  color: $color-success !important;
+}
+
+.text-warning {
+  color: $color-warning !important;
+}
+
+.text-danger {
+  color: $color-danger !important;
+}
+
+.text-info {
+  color: $color-info !important;
+}
+
+// Alignment utilities
+.text-left {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+// Size utilities
+.text-xs {
+  font-size: $font-size-xs !important;
+}
+
+.text-sm {
+  font-size: $font-size-sm !important;
+}
+
+.text-base {
+  font-size: $font-size-base !important;
+}
+
+.text-md {
+  font-size: $font-size-md !important;
+}
+
+.text-lg {
+  font-size: $font-size-lg !important;
+}
+
+.text-xl {
+  font-size: $font-size-xl !important;
+}
+
+.text-2xl {
+  font-size: $font-size-2xl !important;
+}
+
+.text-3xl {
+  font-size: $font-size-3xl !important;
+}
+
+// Transform & style utilities
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+.text-lowercase {
+  text-transform: lowercase !important;
+}
+
+.text-capitalize {
+  text-transform: capitalize !important;
+}
+
+.text-truncate {
+  @include truncate-text(1);
+}
+
+.text-truncate-2 {
+  @include truncate-text(2);
+}
+
+.text-truncate-3 {
+  @include truncate-text(3);
+}

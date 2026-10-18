@@ -1,0 +1,111 @@
+// ==========================================================================
+// Birmingham Food Basket - Table Components
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+// 1. Responsive Table Wrapper
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: $radius-lg;
+  border: 1px solid $color-border;
+  background-color: $color-white;
+}
+
+// 2. Base Data Table
+.data-table {
+  width: 100%;
+  margin-bottom: 0;
+  vertical-align: top;
+  border-collapse: collapse;
+  font-size: $font-size-sm;
+  color: $color-text-body;
+
+  th,
+  td {
+    padding: $space-md $space-lg;
+    vertical-align: middle;
+    border-bottom: 1px solid $color-border-light;
+    text-align: left;
+  }
+
+  th {
+    font-family: $font-heading;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wider;
+    color: $color-text-muted;
+    background-color: $color-bg-light;
+    border-bottom: 2px solid $color-border;
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  // Column alignments
+  .text-right {
+    text-align: right;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  // Thumbnails inside tables
+  &__thumb {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: $radius-md;
+    object-fit: cover;
+    background-color: $color-bg-subtle;
+    border: 1px solid $color-border-light;
+  }
+
+  // Action column buttons
+  &__actions {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2xs;
+  }
+}
+
+// 3. Striped Rows Modifier
+.data-table--striped {
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba(248, 249, 250, 0.7);
+  }
+}
+
+// 4. Hover State Modifier
+.data-table--hover {
+  tbody tr {
+    transition: background-color $transition-duration-fast ease;
+
+    &:hover {
+      background-color: $color-primary-subtle;
+    }
+  }
+}
+
+// 5. Bordered Modifier
+.data-table--bordered {
+  th,
+  td {
+    border: 1px solid $color-border;
+  }
+}
+
+// 6. Compact Modifier
+.data-table--compact {
+  th,
+  td {
+    padding: $space-xs $space-sm;
+    font-size: $font-size-xs;
+  }
+}

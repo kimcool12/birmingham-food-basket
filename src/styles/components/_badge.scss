@@ -1,0 +1,130 @@
+// ==========================================================================
+// Birmingham Food Basket - Badge Components
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+// 1. Base Badge
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-3xs;
+  padding: 0.25em 0.65em;
+  font-family: $font-heading;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: $radius-pill;
+  transition: $transition-fast;
+
+  // Dot indicator inside badge
+  &__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: $radius-round;
+    background-color: currentColor;
+  }
+}
+
+// 2. Semantic Color Badges
+.badge-primary {
+  color: $color-primary-dark;
+  background-color: $color-primary-subtle;
+  border: 1px solid rgba(45, 106, 79, 0.2);
+}
+
+.badge-secondary {
+  color: $color-secondary;
+  background-color: tint($color-secondary, 85%);
+  border: 1px solid rgba(64, 145, 108, 0.2);
+}
+
+.badge-success {
+  color: $color-success-dark;
+  background-color: $color-success-light;
+  border: 1px solid rgba(40, 167, 69, 0.25);
+}
+
+.badge-warning {
+  color: #92400e;
+  background-color: $color-warning-light;
+  border: 1px solid rgba(255, 193, 7, 0.35);
+}
+
+.badge-danger {
+  color: $color-danger-dark;
+  background-color: $color-danger-light;
+  border: 1px solid rgba(220, 53, 69, 0.25);
+}
+
+.badge-info {
+  color: $color-info-dark;
+  background-color: $color-info-light;
+  border: 1px solid rgba(23, 162, 184, 0.25);
+}
+
+.badge-light {
+  color: $color-text-dark;
+  background-color: $color-bg-light;
+  border: 1px solid $color-border;
+}
+
+// 3. E-Commerce Order Status Badges
+.badge-pending {
+  color: #92400e;
+  background-color: $status-pending-bg;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-processing {
+  color: #1e40af;
+  background-color: $status-processing-bg;
+  border: 1px solid rgba(37, 99, 235, 0.3);
+}
+
+.badge-shipped {
+  color: #5b21b6;
+  background-color: $status-shipped-bg;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+.badge-delivered {
+  color: #065f46;
+  background-color: $status-delivered-bg;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-cancelled {
+  color: #991b1b;
+  background-color: $status-cancelled-bg;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge-refunded {
+  color: #374151;
+  background-color: $status-refunded-bg;
+  border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+// 4. Food Market Specialized Badges
+.badge-organic {
+  color: #1b4332;
+  background-color: #d8f3dc;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3em 0.75em;
+  border: 1px solid #74c69d;
+}
+
+.badge-discount {
+  color: $color-white;
+  background-color: $color-danger;
+  font-weight: $font-weight-bold;
+  padding: 0.3em 0.6em;
+  border-radius: $radius-sm;
+}

@@ -1,0 +1,75 @@
+// ==========================================================================
+// Birmingham Food Basket - SCSS Functions
+// ==========================================================================
+
+@use 'sass:math';
+@use 'sass:color';
+@use 'sass:meta';
+@use 'sass:map';
+
+/// Convert pixel values to rem units
+/// @param {Number} $px - The pixel value to convert (can include 'px' unit or be unitless)
+/// @param {Number} $base-font-size - Root html font size (defaults to 16px)
+/// @return {Number} - Equivalent rem value
+@function rem($px, $base-font-size: 16px) {
+  @if not math.is-unitless($px) {
+    $px: math.div($px, ($px * 0 + 1));
+  }
+  @if not math.is-unitless($base-font-size) {
+    $base-font-size: math.div($base-font-size, ($base-font-size * 0 + 1));
+  }
+  @return math.div($px, $base-font-size) * 1rem;
+}
+
+/// Slightly lighten a color by mixing with pure white
+/// @param {Color} $color - Color to tint
+/// @param {Number} $percentage - Percentage of white (0% to 100%)
+/// @return {Color}
+@function tint($color, $percentage) {
+  @return color.mix(#ffffff, $color, $percentage);
+}
+
+/// Slightly darken a color by mixing with pure black
+/// @param {Color} $color - Color to shade
+/// @param {Number} $percentage - Percentage of black (0% to 100%)
+/// @return {Color}
+@function shade($color, $percentage) {
+  @return color.mix(#000000, $color, $percentage);
+}
+
+/// Calculate responsive spacing based on multiplier or preset token
+/// Base unit is 4px (0.25rem)
+/// @param {Number|String} $multiplier - Number of 4px units, or preset name
+/// @return {Number} - Spacing in rem
+@function spacing($val: 1) {
+  @if meta.type-of($val) == 'number' {
+    @return $val * 0.25rem;
+  }
+  
+  $presets: (
+    '3xs': 0.125rem, // 2px
+    '2xs': 0.25rem,  // 4px
+    'xs': 0.5rem,    // 8px
+    'sm': 0.75rem,   // 12px
+    'md': 1rem,      // 16px
+    'lg': 1.5rem,    // 24px
+    'xl': 2rem,      // 32px
+    '2xl': 3rem,     // 48px
+    '3xl': 4rem      // 64px
+  );
+
+  @if map.has-key($presets, $val) {
+    @return map.get($presets, $val);
+  }
+
+  @warn "Unknown spacing preset `#{$val}`. Using 1rem fallback.";
+  @return 1rem;
+}
+
+/// Generate subtle transparency for colors
+/// @param {Color} $color - Target color
+/// @param {Number} $opacity - Opacity value between 0 and 1
+/// @return {Color}
+@function alpha($color, $opacity) {
+  @return color.change($color, $alpha: $opacity);
+}

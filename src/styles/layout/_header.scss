@@ -1,0 +1,235 @@
+// ==========================================================================
+// Birmingham Food Basket - Header Component
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: $z-sticky;
+  background-color: $color-white;
+  border-bottom: 1px solid $color-border;
+  transition: box-shadow $transition-duration-normal ease;
+
+  &.is-scrolled {
+    box-shadow: $shadow-md;
+  }
+
+  // Top info bar (optional announcement or market notice)
+  &__top-bar {
+    background-color: $color-primary-darker;
+    color: $color-accent-light;
+    font-size: $font-size-xs;
+    padding: $space-2xs 0;
+    text-align: center;
+    font-weight: $font-weight-medium;
+
+    a {
+      color: $color-white;
+      text-decoration: underline;
+      margin-left: $space-2xs;
+    }
+  }
+
+  // Main navigation row
+  &__inner {
+    @include flex-between;
+    height: 4.5rem;
+    gap: $space-lg;
+
+    @include respond-to('lg') {
+      height: 5rem;
+    }
+  }
+
+  // Brand / Logo Area
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    text-decoration: none;
+    flex-shrink: 0;
+
+    &-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      color: $color-primary;
+    }
+
+    &-text {
+      font-family: $font-heading;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $color-primary-dark;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+
+      span {
+        color: $color-secondary;
+      }
+    }
+  }
+
+  // Center / Navigation Links
+  &__nav {
+    display: none;
+
+    @include respond-to('lg') {
+      display: flex;
+      align-items: center;
+      gap: $space-lg;
+    }
+
+    .nav-link {
+      font-family: $font-heading;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      color: $color-text-dark;
+      position: relative;
+      padding: $space-2xs 0;
+      transition: color $transition-duration-fast ease;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background-color: $color-primary;
+        transition: width $transition-duration-normal ease;
+      }
+
+      &:hover,
+      &.active {
+        color: $color-primary;
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  // Actions on the Right (Cart, Notifications, Account)
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+
+    @include respond-to('md') {
+      gap: $space-md;
+    }
+  }
+
+  // Interactive Action Button (Cart / Notifications)
+  &__action-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: $radius-round;
+    color: $color-text-dark;
+    background-color: $color-bg-light;
+    border: 1px solid $color-border;
+    transition: $transition-fast;
+
+    &:hover {
+      background-color: $color-primary-subtle;
+      color: $color-primary;
+      border-color: $color-accent;
+    }
+
+    svg,
+    i {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    // Counter badge for Cart & Notifications
+    .count-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 1.25rem;
+      height: 1.25rem;
+      padding: 0 4px;
+      border-radius: $radius-pill;
+      background-color: $color-primary;
+      color: $color-white;
+      font-size: 0.6875rem;
+      font-weight: $font-weight-bold;
+      line-height: 1.25rem;
+      text-align: center;
+      border: 2px solid $color-white;
+      box-shadow: $shadow-xs;
+    }
+
+    &--notification .count-badge {
+      background-color: $color-danger;
+    }
+  }
+
+  // User Profile Menu trigger
+  &__user-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    cursor: pointer;
+    padding: $space-3xs $space-xs;
+    border-radius: $radius-pill;
+    border: 1px solid transparent;
+    transition: $transition-fast;
+
+    &:hover {
+      background-color: $color-bg-light;
+      border-color: $color-border;
+    }
+
+    .user-avatar {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: $radius-round;
+      object-fit: cover;
+      background-color: $color-accent-light;
+      color: $color-primary-dark;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-sm;
+    }
+
+    .user-name {
+      display: none;
+      font-family: $font-heading;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+      color: $color-text-dark;
+
+      @include respond-to('md') {
+        display: block;
+      }
+    }
+  }
+
+  // Mobile Hamburger Toggle Button
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: $color-text-dark;
+
+    @include respond-to('lg') {
+      display: none;
+    }
+  }
+}

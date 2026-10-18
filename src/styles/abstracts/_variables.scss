@@ -1,0 +1,273 @@
+// ==========================================================================
+// Birmingham Food Basket - Variables
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// 1. Brand & Theme Colors (Food-Market & Organic Green Palette)
+// --------------------------------------------------------------------------
+
+// Primary brand colors (Fresh, healthy, organic dark greens)
+$color-primary: #2D6A4F;             // Signature Forest Green
+$color-primary-dark: #1B4332;        // Deep evergreen for hover/active states
+$color-primary-darker: #081C15;      // Darkest pine tone
+$color-primary-light: #52B788;       // Fresh leaf green
+$color-primary-subtle: #E8F5E9;      // Gentle mint tint for soft backgrounds
+
+// Secondary colors
+$color-secondary: #40916C;           // Vibrant garden sage
+$color-secondary-dark: #2D6A4F;
+$color-secondary-light: #74C69D;     // Soft mint tone
+
+// Accent colors
+$color-accent: #95D5B2;              // Crisp spring mint
+$color-accent-light: #D8F3DC;        // Delicate fresh wash
+$color-accent-warm: #E9D8A6;         // Warm market wicker accent
+
+// Neutral & Text colors
+$color-text-dark: #1B1B1B;           // Primary high-contrast text
+$color-text-body: #2B2D42;           // Body text
+$color-text-muted: #4A5568;          // Secondary body text
+$color-text-light: #6C757D;          // Subdued caption / helper text
+$color-text-placeholder: #A0AEC0;    // Input placeholder text
+$color-white: #FFFFFF;               // Clean white
+$color-text-white: #FFFFFF;
+
+// Background & Surface colors
+$color-bg-light: #F8F9FA;            // Main application background
+$color-bg-subtle: #F0F4F1;           // Subtle green-tinted background
+$color-bg-white: #FFFFFF;            // Surface / Card background
+$color-bg-dark: #212529;             // Dark footer and dark theme background
+$color-bg-dark-surface: #1E2227;     // Dark surface card
+
+// Border & Divider colors
+$color-border-light: #F1F3F5;        // Ultra subtle divider
+$color-border: #E5E7EB;              // Standard component border
+$color-border-medium: #D1D5DB;       // Stronger border (inputs, cards)
+$color-border-dark: #9CA3AF;         // Emphasized outline
+
+// Feedback & Status Colors
+$color-success: #28A745;             // Fresh harvest success
+$color-success-light: #D4EDDA;
+$color-success-dark: #1E7E34;
+
+$color-warning: #FFC107;             // Ripe citrus warning
+$color-warning-light: #FFF3CD;
+$color-warning-dark: #D39E00;
+
+$color-danger: #DC3545;              // Berry alert / Error
+$color-danger-light: #F8D7DA;
+$color-danger-dark: #BD2130;
+
+$color-info: #17A2B8;                // Clean sky info
+$color-info-light: #D1ECF1;
+$color-info-dark: #117A8B;
+
+// Order Status Specific Colors
+$status-pending: #F59E0B;
+$status-pending-bg: #FEF3C7;
+$status-processing: #2563EB;
+$status-processing-bg: #DBEAFE;
+$status-shipped: #7C3AED;
+$status-shipped-bg: #EDE9FE;
+$status-delivered: #10B981;
+$status-delivered-bg: #D1FAE5;
+$status-cancelled: #EF4444;
+$status-cancelled-bg: #FEE2E2;
+$status-refunded: #6B7280;
+$status-refunded-bg: #F3F4F6;
+
+// Direct variable aliases (matching exact specification)
+$primary: $color-primary;
+$secondary: $color-secondary;
+$accent: $color-accent;
+$text-dark: $color-text-dark;
+$text-light: $color-text-light;
+$white: $color-white;
+$bg-light: $color-bg-light;
+$bg-dark: $color-bg-dark;
+$success: $color-success;
+$warning: $color-warning;
+$danger: $color-danger;
+$info: $color-info;
+
+// --------------------------------------------------------------------------
+// 2. Typography
+// --------------------------------------------------------------------------
+
+$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+$font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+
+// Font Sizes (Rem scale based on 16px)
+$font-size-xs: 0.75rem;    // 12px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-base: 1rem;     // 16px
+$font-size-md: 1.125rem;   // 18px
+$font-size-lg: 1.25rem;    // 20px
+$font-size-xl: 1.5rem;     // 24px
+$font-size-2xl: 1.875rem;  // 30px
+$font-size-3xl: 2.25rem;   // 36px
+$font-size-4xl: 3rem;      // 48px
+$font-size-5xl: 3.75rem;   // 60px
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// Line Heights
+$line-height-none: 1;
+$line-height-tight: 1.25;
+$line-height-snug: 1.375;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.625;
+$line-height-loose: 2;
+
+// Letter Spacing
+$letter-spacing-tight: -0.025em;
+$letter-spacing-normal: 0em;
+$letter-spacing-wide: 0.025em;
+$letter-spacing-wider: 0.05em;
+
+// --------------------------------------------------------------------------
+// 3. Spacing Scale (Base unit 4px)
+// --------------------------------------------------------------------------
+
+$space-3xs: 0.125rem;  // 2px
+$space-2xs: 0.25rem;   // 4px
+$space-xs: 0.5rem;     // 8px
+$space-sm: 0.75rem;    // 12px
+$space-md: 1rem;       // 16px
+$space-lg: 1.5rem;     // 24px
+$space-xl: 2rem;       // 32px
+$space-2xl: 3rem;      // 48px
+$space-3xl: 4rem;      // 64px
+$space-4xl: 5rem;      // 80px
+
+$spacings: (
+  '3xs': $space-3xs,
+  '2xs': $space-2xs,
+  'xs': $space-xs,
+  'sm': $space-sm,
+  'md': $space-md,
+  'lg': $space-lg,
+  'xl': $space-xl,
+  '2xl': $space-2xl,
+  '3xl': $space-3xl,
+  '4xl': $space-4xl
+);
+
+// Spacing scale aliases
+$spacing-3xs: $space-3xs;
+$spacing-2xs: $space-2xs;
+$spacing-xs: $space-xs;
+$spacing-sm: $space-sm;
+$spacing-md: $space-md;
+$spacing-lg: $space-lg;
+$spacing-xl: $space-xl;
+$spacing-2xl: $space-2xl;
+$spacing-3xl: $space-3xl;
+$spacing-4xl: $space-4xl;
+
+// --------------------------------------------------------------------------
+// 4. Border Radius
+// --------------------------------------------------------------------------
+
+$radius-none: 0;
+$radius-xs: 2px;
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-2xl: 24px;
+$radius-3xl: 32px;
+$radius-round: 50%;
+$radius-pill: 9999px;
+
+// --------------------------------------------------------------------------
+// 5. Box Shadows
+// --------------------------------------------------------------------------
+
+$shadow-none: none;
+$shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.18);
+$shadow-hover: 0 12px 24px -4px rgba(45, 106, 79, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+$shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+$shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+$shadow-outline: 0 0 0 3px rgba(45, 106, 79, 0.25);
+$shadow-outline-danger: 0 0 0 3px rgba(220, 53, 69, 0.25);
+
+// --------------------------------------------------------------------------
+// 6. Responsive Breakpoints
+// --------------------------------------------------------------------------
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+$breakpoints: (
+  'sm': $breakpoint-sm,
+  'md': $breakpoint-md,
+  'lg': $breakpoint-lg,
+  'xl': $breakpoint-xl,
+  'xxl': $breakpoint-xxl
+);
+
+// Container max-widths
+$container-sm: 540px;
+$container-md: 720px;
+$container-lg: 960px;
+$container-xl: 1140px;
+$container-xxl: 1320px;
+
+$container-max-widths: (
+  'sm': $container-sm,
+  'md': $container-md,
+  'lg': $container-lg,
+  'xl': $container-xl,
+  'xxl': $container-xxl
+);
+
+// --------------------------------------------------------------------------
+// 7. Z-Index Scale
+// --------------------------------------------------------------------------
+
+$z-negative: -1;
+$z-base: 1;
+$z-docked: 10;
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;
+$z-toast: 1080;
+
+// --------------------------------------------------------------------------
+// 8. Transitions & Animations
+// --------------------------------------------------------------------------
+
+$transition-duration-fast: 0.15s;
+$transition-duration-normal: 0.25s;
+$transition-duration-slow: 0.4s;
+
+$transition-timing-ease: cubic-bezier(0.4, 0, 0.2, 1);
+$transition-timing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+$transition-fast: all $transition-duration-fast $transition-timing-ease;
+$transition-normal: all $transition-duration-normal $transition-timing-ease;
+$transition-slow: all $transition-duration-slow $transition-timing-ease;
+$transition-base: all 0.25s ease-in-out;
+$transition-colors: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+$transition-transform: transform 0.25s $transition-timing-ease;
+$transition-shadow: box-shadow 0.25s $transition-timing-ease;

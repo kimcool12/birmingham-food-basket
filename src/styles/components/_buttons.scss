@@ -1,0 +1,243 @@
+// ==========================================================================
+// Birmingham Food Basket - Button Components
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+// 1. Base Button
+.btn {
+  @include button-base;
+
+  // Icon inside button alignment
+  svg,
+  i,
+  .icon {
+    display: inline-block;
+    width: 1.15em;
+    height: 1.15em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+}
+
+// 2. Button Color Variants
+.btn-primary {
+  background-color: $color-primary;
+  border-color: $color-primary;
+  color: $color-white;
+
+  &:hover {
+    background-color: $color-primary-dark;
+    border-color: $color-primary-dark;
+    color: $color-white;
+    box-shadow: $shadow-md;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background-color: $color-primary-darker;
+    border-color: $color-primary-darker;
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    box-shadow: $shadow-outline;
+  }
+}
+
+.btn-secondary {
+  background-color: $color-secondary;
+  border-color: $color-secondary;
+  color: $color-white;
+
+  &:hover {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-white;
+    box-shadow: $shadow-md;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background-color: $color-primary-dark;
+    border-color: $color-primary-dark;
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    box-shadow: $shadow-outline;
+  }
+}
+
+.btn-accent {
+  background-color: $color-accent;
+  border-color: $color-accent;
+  color: $color-primary-dark;
+  font-weight: $font-weight-bold;
+
+  &:hover {
+    background-color: tint($color-accent, 20%);
+    border-color: tint($color-accent, 20%);
+    transform: translateY(-1px);
+    box-shadow: $shadow-sm;
+  }
+}
+
+.btn-outline,
+.btn-outline-primary {
+  background-color: transparent;
+  border-color: $color-primary;
+  color: $color-primary;
+
+  &:hover {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-white;
+    box-shadow: $shadow-sm;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    background-color: $color-primary-dark;
+    border-color: $color-primary-dark;
+    color: $color-white;
+  }
+
+  &:focus-visible {
+    box-shadow: $shadow-outline;
+  }
+}
+
+.btn-outline-secondary {
+  background-color: transparent;
+  border-color: $color-border-dark;
+  color: $color-text-dark;
+
+  &:hover {
+    background-color: $color-bg-light;
+    border-color: $color-text-dark;
+    color: $color-text-dark;
+  }
+}
+
+.btn-danger {
+  background-color: $color-danger;
+  border-color: $color-danger;
+  color: $color-white;
+
+  &:hover {
+    background-color: $color-danger-dark;
+    border-color: $color-danger-dark;
+    color: $color-white;
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    box-shadow: $shadow-outline-danger;
+  }
+}
+
+.btn-outline-danger {
+  background-color: transparent;
+  border-color: $color-danger;
+  color: $color-danger;
+
+  &:hover {
+    background-color: $color-danger;
+    border-color: $color-danger;
+    color: $color-white;
+  }
+}
+
+.btn-light {
+  background-color: $color-bg-light;
+  border-color: $color-border;
+  color: $color-text-dark;
+
+  &:hover {
+    background-color: $color-border;
+    border-color: $color-border-medium;
+    color: $color-text-dark;
+  }
+}
+
+// 3. Button Size Modifiers
+.btn-sm {
+  padding: $space-2xs $space-sm;
+  font-size: $font-size-sm;
+  border-radius: $radius-sm;
+  gap: $space-2xs;
+}
+
+.btn-lg {
+  padding: $space-md $space-xl;
+  font-size: $font-size-md;
+  border-radius: $radius-lg;
+  font-weight: $font-weight-bold;
+}
+
+// 4. Icon & Special Buttons
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border-radius: $radius-round;
+  color: $color-text-dark;
+  background-color: $color-bg-light;
+  border: 1px solid $color-border;
+  transition: $transition-fast;
+
+  &:hover {
+    background-color: $color-primary-subtle;
+    border-color: $color-accent;
+    color: $color-primary;
+    transform: scale(1.05);
+  }
+
+  &--sm {
+    width: 2rem;
+    height: 2rem;
+    font-size: $font-size-xs;
+  }
+
+  &--lg {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: $font-size-lg;
+  }
+}
+
+.btn-block {
+  display: flex;
+  width: 100%;
+}
+
+// 5. Loading State
+.btn.is-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 1.25rem;
+    height: 1.25rem;
+    top: calc(50% - 0.625rem);
+    left: calc(50% - 0.625rem);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: currentColor;
+    border-radius: $radius-round;
+    animation: btn-spin 0.75s linear infinite;
+  }
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

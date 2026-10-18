@@ -1,0 +1,175 @@
+// ==========================================================================
+// Birmingham Food Basket - Navigation Components
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+// 1. Base Navigation List
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  gap: $space-md;
+
+  &--vertical {
+    flex-direction: column;
+    align-items: stretch;
+    gap: $space-xs;
+  }
+}
+
+// 2. Navigation Item & Link
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xs;
+  font-family: $font-heading;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $color-text-dark;
+  padding: $space-xs $space-sm;
+  border-radius: $radius-md;
+  transition: color $transition-duration-fast ease,
+              background-color $transition-duration-fast ease;
+
+  &:hover {
+    color: $color-primary;
+    background-color: $color-primary-subtle;
+  }
+
+  &.is-active,
+  &.active {
+    color: $color-primary-dark;
+    background-color: $color-accent-light;
+    font-weight: $font-weight-semibold;
+  }
+
+  &.disabled {
+    color: $color-text-light;
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+// 3. Hamburger Button
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 1.75rem;
+  height: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: $z-fixed;
+
+  span {
+    width: 100%;
+    height: 2px;
+    background-color: $color-text-dark;
+    border-radius: $radius-pill;
+    transition: all $transition-duration-normal ease;
+    transform-origin: 1px;
+  }
+
+  &.is-open {
+    span:first-child {
+      transform: rotate(45deg);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    span:nth-child(3) {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+// 4. Mobile Navigation Drawer / Off-canvas Menu
+.mobile-nav-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(17, 24, 39, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: $z-modal-backdrop;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $transition-duration-normal ease,
+              visibility $transition-duration-normal ease;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @include respond-to('lg') {
+    display: none;
+  }
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 82%;
+  max-width: 320px;
+  height: 100vh;
+  background-color: $color-white;
+  z-index: $z-modal;
+  transform: translateX(-100%);
+  transition: transform $transition-duration-normal $transition-timing-ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: $shadow-xl;
+  overflow-y: auto;
+
+  &.is-open {
+    transform: translateX(0);
+  }
+
+  @include respond-to('lg') {
+    display: none;
+  }
+
+  &__header {
+    @include flex-between;
+    padding: $space-lg;
+    border-bottom: 1px solid $color-border-light;
+  }
+
+  &__body {
+    padding: $space-lg;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+
+    .nav-link {
+      width: 100%;
+      padding: $space-sm $space-md;
+      font-size: $font-size-md;
+      border-radius: $radius-md;
+    }
+  }
+
+  &__footer {
+    padding: $space-lg;
+    border-top: 1px solid $color-border-light;
+    background-color: $color-bg-light;
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+  }
+}

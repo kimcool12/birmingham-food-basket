@@ -1,0 +1,107 @@
+// ==========================================================================
+// Birmingham Food Basket - CSS Reset
+// ==========================================================================
+
+// 1. Box sizing rules
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// 2. Prevent font size inflation & remove default text-size-adjust
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+// 3. Remove list styles on ul, ol elements
+ul,
+ol {
+  list-style: none;
+}
+
+// 4. Set core body defaults
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 5. Make media elements responsive and block-level
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// 6. Inherit fonts and form styling
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+// 7. Remove built-in form button backgrounds / borders
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+// 8. Remove link underlines and inherit color by default
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// 9. Reset table spacing
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+// 10. Avoid text overflow
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+// 11. Remove fieldset borders
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+// 12. Address inaccessible focus rings smoothly
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

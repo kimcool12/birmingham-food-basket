@@ -1,0 +1,273 @@
+// Prisma 7 — datasource has NO url field; connection is handled via
+// the driver adapter initialised in prisma.config.js and src/lib/prisma.js.
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+// ============================================================================
+// Enums
+// ============================================================================
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
+
+enum Availability {
+  AVAILABLE
+  UNAVAILABLE
+  LIMITED
+}
+
+enum OrderStatus {
+  ORDER_PLACED
+  CONFIRMED
+  PREPARING
+  READY
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+enum NotificationType {
+  ORDER_CONFIRMED
+  ORDER_PREPARING
+  ORDER_READY
+  ORDER_OUT_FOR_DELIVERY
+  ORDER_DELIVERED
+  DELIVERY_APPROACHING
+  CUSTOM
+}
+
+enum DeliveryStatus {
+  SCHEDULED
+  OUT_FOR_DELIVERY
+  DELIVERED
+  FAILED
+}
+
+// ============================================================================
+// Models
+// ============================================================================
+
+model User {
+  id            String           @id @default(uuid())
+  email         String           @unique
+  username      String           @unique
+  // Renamed from password to passwordHash — never store plaintext
+  passwordHash  String
+  role          Role             @default(CUSTOMER)
+  whatsapp      String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  // Relations
+  profile            CustomerProfile?
+  orders             Order[]
+  customRequests     CustomRequest[]
+  notifications      Notification[]
+  auditLogs          AdminAuditLog[]
+  orderStatusHistory OrderStatusHistory[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model CustomerProfile {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  // Cascade: profile is a child record of User — delete profile when user is deleted
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName  String
+  phone     String
+  address   String
+  postcode  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  image       String?
+  isActive    Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  products    Product[]
+}
+
+model Product {
+  id           String       @id @default(uuid())
+  categoryId   String
+  // Restrict: do not delete a Category that still has Products
+  category     Category     @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  name         String
+  brand        String?
+  description  String?
+  size         String?
+  unit         String
+  price        Decimal      @db.Decimal(10, 2)
+  availability Availability @default(AVAILABLE)
+  // Changed from Int to Decimal(10,2) to support fractional quantities (e.g. kg)
+  stock        Decimal      @default(0) @db.Decimal(10, 2)
+  image        String?
+  isActive     Boolean      @default(true)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  // Relations
+  orderItems   OrderItem[]
+
+  // A product name+size combo must be unique within a category
+  @@unique([categoryId, name, size])
+  @@index([categoryId])
+  @@index([availability])
+  @@index([name])
+  @@index([isActive])
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  orderNumber Int         @unique @default(autoincrement())
+  userId      String
+  // Restrict: do not delete a User that still has Orders
+  user        User        @relation(fields: [userId], references: [id], onDelete: Restrict)
+  status      OrderStatus @default(ORDER_PLACED)
+  total       Decimal     @db.Decimal(10, 2)
+  address     String
+  postcode    String
+  phone       String
+  whatsapp    String?
+  fullName    String
+  notes       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  orderItems         OrderItem[]
+  customRequests     CustomRequest[]
+  notifications      Notification[]
+  delivery           Delivery?
+  orderStatusHistory OrderStatusHistory[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([postcode])
+}
+
+model OrderItem {
+  id                  String   @id @default(uuid())
+  orderId             String
+  // Cascade: items belong to the order — delete items when order is deleted
+  order               Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId           String
+  // Restrict: do not delete a Product that is referenced by order history
+  product             Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+  productNameSnapshot String
+  quantity            Decimal  @db.Decimal(10, 2)
+  unit                String
+  unitPrice           Decimal  @db.Decimal(10, 2)
+  total               Decimal  @db.Decimal(10, 2)
+  createdAt           DateTime @default(now())
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model CustomRequest {
+  id        String   @id @default(uuid())
+  orderId   String
+  // Cascade: custom requests belong to the order
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId    String
+  // Cascade: custom requests belong to the user
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemName  String
+  quantity  String
+  note      String?
+  createdAt DateTime @default(now())
+
+  @@index([orderId])
+  @@index([userId])
+}
+
+model Notification {
+  id             String           @id @default(uuid())
+  userId         String
+  // Cascade: notifications belong to the user
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderId        String?
+  order          Order?           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  message        String
+  type           NotificationType
+  read           Boolean          @default(false)
+  // Which channel this notification targets (e.g. "app", "whatsapp", "email")
+  channel        String           @default("app")
+  // Whether an external message (WhatsApp/SMS/email) was successfully sent
+  externalSent   Boolean          @default(false)
+  createdAt      DateTime         @default(now())
+
+  @@index([userId])
+  @@index([read])
+  @@index([orderId])
+  // Composite index used for the unread-count query: WHERE userId=? AND read=false
+  @@index([userId, read])
+}
+
+model Delivery {
+  id               String         @id @default(uuid())
+  orderId          String         @unique
+  // Cascade: delivery record belongs to the order
+  order            Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  deliveryDate     DateTime?
+  deliveryTime     String?
+  status           DeliveryStatus @default(SCHEDULED)
+  notificationSent Boolean        @default(false)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  @@index([deliveryDate])
+  @@index([status])
+}
+
+model AdminAuditLog {
+  id        String   @id @default(uuid())
+  adminId   String
+  // Restrict: do not delete an Admin user that has audit log entries
+  admin     User     @relation(fields: [adminId], references: [id], onDelete: Restrict)
+  action    String
+  target    String
+  targetId  String
+  oldValue  String?
+  newValue  String?
+  createdAt DateTime @default(now())
+
+  @@index([adminId])
+  @@index([createdAt])
+}
+
+model OrderStatusHistory {
+  id          String      @id @default(uuid())
+  orderId     String
+  // Cascade: history belongs to the order
+  order       Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  status      OrderStatus
+  changedById String
+  // Cascade: history entry belongs to the user who made the change
+  changedBy   User        @relation(fields: [changedById], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+
+  @@index([orderId])
+  @@index([changedById])
+}

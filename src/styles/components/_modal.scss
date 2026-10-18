@@ -1,0 +1,122 @@
+// ==========================================================================
+// Birmingham Food Basket - Modal Components
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+// 1. Modal Overlay / Backdrop
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: $z-modal-backdrop;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-md;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $transition-duration-normal ease,
+              visibility $transition-duration-normal ease;
+
+  &.is-active,
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// 2. Modal Dialog Window
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  background-color: $color-white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-2xl;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 2 * #{$space-lg});
+  z-index: $z-modal;
+  transform: translateY(20px) scale(0.96);
+  transition: transform $transition-duration-normal $transition-timing-bounce;
+
+  .modal-overlay.is-active &,
+  .modal-overlay.open & {
+    transform: translateY(0) scale(1);
+  }
+
+  // Size Modifiers
+  &--sm {
+    max-width: 400px;
+  }
+
+  &--lg {
+    max-width: 800px;
+  }
+
+  &--xl {
+    max-width: 1040px;
+  }
+
+  &--full {
+    max-width: calc(100vw - 2 * #{$space-md});
+    height: calc(100vh - 2 * #{$space-md});
+  }
+}
+
+// 3. Modal Header
+.modal-header {
+  @include flex-between;
+  padding: $space-lg $space-xl;
+  border-bottom: 1px solid $color-border-light;
+
+  .modal-title {
+    margin-bottom: 0;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-dark;
+  }
+
+  .modal-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: $color-text-light;
+    padding: $space-2xs;
+    border-radius: $radius-sm;
+    transition: color $transition-duration-fast ease,
+                background-color $transition-duration-fast ease;
+
+    &:hover {
+      color: $color-danger;
+      background-color: $color-bg-light;
+    }
+  }
+}
+
+// 4. Modal Body
+.modal-body {
+  padding: $space-xl;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+// 5. Modal Footer
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $space-sm;
+  padding: $space-md $space-xl;
+  border-top: 1px solid $color-border-light;
+  background-color: $color-bg-light;
+  border-bottom-left-radius: $radius-xl;
+  border-bottom-right-radius: $radius-xl;
+}

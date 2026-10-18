@@ -1,0 +1,300 @@
+// ==========================================================================
+// Birmingham Food Basket - Home Page Styles
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+.home-page {
+  // 1. Hero Section
+  .hero-section {
+    position: relative;
+    padding: $space-3xl 0;
+    background: linear-gradient(135deg, $color-bg-subtle 0%, #e3ede6 100%);
+    overflow: hidden;
+
+    @include respond-to('md') {
+      padding: $space-4xl 0;
+    }
+
+    &__grid {
+      @include grid(1, $space-2xl);
+      align-items: center;
+
+      @include respond-to('lg') {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $space-md;
+    }
+
+    &__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: $space-xs;
+      background-color: $color-white;
+      color: $color-primary;
+      padding: $space-2xs $space-md;
+      border-radius: $radius-pill;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      box-shadow: $shadow-sm;
+      border: 1px solid rgba(45, 106, 79, 0.15);
+    }
+
+    &__title {
+      @include heading-style(1);
+      color: $color-primary-darker;
+      line-height: 1.15;
+
+      .highlight {
+        color: $color-primary;
+        position: relative;
+        display: inline-block;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 4px;
+          width: 100%;
+          height: 8px;
+          background-color: $color-accent;
+          opacity: 0.4;
+          z-index: -1;
+          border-radius: $radius-sm;
+        }
+      }
+    }
+
+    &__subtitle {
+      font-size: $font-size-lg;
+      color: $color-text-muted;
+      line-height: $line-height-relaxed;
+      max-width: 540px;
+    }
+
+    &__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $space-md;
+      margin-top: $space-xs;
+    }
+
+    &__stats {
+      display: flex;
+      gap: $space-xl;
+      margin-top: $space-lg;
+      padding-top: $space-lg;
+      border-top: 1px solid rgba(45, 106, 79, 0.15);
+      width: 100%;
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+
+        .stat-value {
+          font-family: $font-heading;
+          font-size: $font-size-2xl;
+          font-weight: $font-weight-extrabold;
+          color: $color-primary-dark;
+        }
+
+        .stat-label {
+          font-size: $font-size-xs;
+          color: $color-text-light;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+      }
+    }
+
+    &__media {
+      position: relative;
+      display: flex;
+      justify-content: center;
+
+      .hero-image-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 480px;
+        border-radius: $radius-2xl;
+        overflow: hidden;
+        box-shadow: $shadow-xl;
+
+        img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+      }
+
+      .floating-tag {
+        position: absolute;
+        bottom: -$space-md;
+        left: -$space-md;
+        background-color: $color-white;
+        padding: $space-md $space-lg;
+        border-radius: $radius-lg;
+        box-shadow: $shadow-lg;
+        display: flex;
+        align-items: center;
+        gap: $space-sm;
+        z-index: 2;
+
+        .tag-icon {
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: $radius-round;
+          background-color: $color-primary-subtle;
+          color: $color-primary;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.25rem;
+        }
+
+        .tag-text {
+          font-weight: $font-weight-bold;
+          font-size: $font-size-sm;
+          color: $color-primary-dark;
+        }
+      }
+    }
+  }
+
+  // 2. Featured Categories Grid
+  .categories-section {
+    padding: $space-3xl 0;
+
+    &__header {
+      @include flex-between;
+      margin-bottom: $space-2xl;
+      flex-wrap: wrap;
+      gap: $space-md;
+    }
+
+    &__grid {
+      @include grid-auto-fit(160px, $space-md);
+
+      @include respond-to('md') {
+        grid-template-columns: repeat(6, 1fr);
+        gap: $space-lg;
+      }
+    }
+
+    .category-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: $space-lg $space-md;
+      background-color: $color-white;
+      border-radius: $radius-xl;
+      border: 1px solid $color-border;
+      text-decoration: none;
+      transition: all $transition-duration-normal ease;
+
+      &__icon-box {
+        width: 4rem;
+        height: 4rem;
+        border-radius: $radius-round;
+        background-color: $color-bg-subtle;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: $space-sm;
+        color: $color-primary;
+        transition: all $transition-duration-normal ease;
+
+        svg,
+        img {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
+
+      &__title {
+        font-family: $font-heading;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        color: $color-text-dark;
+        margin-bottom: $space-3xs;
+      }
+
+      &__count {
+        font-size: $font-size-xs;
+        color: $color-text-light;
+      }
+
+      &:hover {
+        transform: translateY(-4px);
+        border-color: $color-accent;
+        box-shadow: $shadow-hover;
+
+        .category-card__icon-box {
+          background-color: $color-primary;
+          color: $color-white;
+        }
+
+        .category-card__title {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  // 3. Featured Products Section
+  .products-section {
+    padding: $space-3xl 0;
+    background-color: $color-bg-light;
+
+    &__header {
+      @include flex-between;
+      margin-bottom: $space-2xl;
+      flex-wrap: wrap;
+      gap: $space-md;
+    }
+
+    &__grid {
+      @include grid-auto-fit(260px, $space-lg);
+    }
+  }
+
+  // 4. Promo Banner Section
+  .promo-banner {
+    margin: $space-2xl 0;
+    background: linear-gradient(135deg, $color-primary 0%, $color-primary-dark 100%);
+    border-radius: $radius-2xl;
+    padding: $space-2xl $space-xl;
+    color: $color-white;
+    position: relative;
+    overflow: hidden;
+
+    @include respond-to('md') {
+      padding: $space-3xl;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__content {
+      max-width: 500px;
+      z-index: 1;
+
+      h3 {
+        color: $color-white;
+        margin-bottom: $space-xs;
+      }
+
+      p {
+        color: $color-accent-light;
+        margin-bottom: $space-lg;
+      }
+    }
+  }
+}

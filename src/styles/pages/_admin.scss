@@ -1,0 +1,214 @@
+// ==========================================================================
+// Birmingham Food Basket - Admin Dashboard Pages
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: $color-bg-light;
+
+  // 1. Main Admin Wrapper (Offsets for fixed sidebar)
+  &__main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to('lg') {
+      margin-left: 260px;
+    }
+  }
+
+  // 2. Admin Top Header
+  &__topbar {
+    position: sticky;
+    top: 0;
+    z-index: $z-sticky;
+    background-color: $color-white;
+    height: 4.5rem;
+    padding: 0 $space-xl;
+    border-bottom: 1px solid $color-border;
+    @include flex-between;
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: $space-md;
+
+      .sidebar-toggle-btn {
+        @include respond-to('lg') {
+          display: none;
+        }
+      }
+
+      .topbar-title {
+        font-family: $font-heading;
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $color-text-dark;
+        margin-bottom: 0;
+      }
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: $space-md;
+    }
+  }
+
+  // 3. Admin Content Container
+  &__content {
+    padding: $space-xl;
+    display: flex;
+    flex-direction: column;
+    gap: $space-2xl;
+  }
+}
+
+// 4. Admin Dashboard Metrics / Stats Grid
+.admin-stats-grid {
+  @include grid-auto-fit(220px, $space-lg);
+
+  .stat-card {
+    background-color: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-xl;
+    padding: $space-lg;
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    @include card-shadow('xs');
+    transition: transform $transition-duration-fast ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      @include card-shadow('sm');
+    }
+
+    &__icon {
+      width: 3.25rem;
+      height: 3.25rem;
+      border-radius: $radius-lg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+
+      &--orders {
+        background-color: $color-primary-subtle;
+        color: $color-primary;
+      }
+
+      &--revenue {
+        background-color: #d1fae5;
+        color: #065f46;
+      }
+
+      &--products {
+        background-color: #dbeafe;
+        color: #1e40af;
+      }
+
+      &--customers {
+        background-color: #fef3c7;
+        color: #92400e;
+      }
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+
+      .stat-label {
+        font-size: $font-size-xs;
+        font-weight: $font-weight-medium;
+        color: $color-text-light;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .stat-value {
+        font-family: $font-heading;
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-extrabold;
+        color: $color-text-dark;
+        line-height: 1.2;
+      }
+
+      .stat-change {
+        font-size: $font-size-xs;
+        margin-top: $space-3xs;
+
+        &.positive {
+          color: $color-success;
+        }
+
+        &.negative {
+          color: $color-danger;
+        }
+      }
+    }
+  }
+}
+
+// 5. Admin Section Card (Wrapping Tables, Charts, etc.)
+.admin-section {
+  background-color: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  @include card-shadow('xs');
+
+  &__header {
+    padding: $space-lg $space-xl;
+    border-bottom: 1px solid $color-border-light;
+    @include flex-between;
+    flex-wrap: wrap;
+    gap: $space-md;
+
+    .section-title {
+      font-family: $font-heading;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      margin-bottom: 0;
+    }
+
+    .section-actions {
+      display: flex;
+      align-items: center;
+      gap: $space-sm;
+    }
+  }
+
+  &__body {
+    padding: $space-xl;
+  }
+
+  &__footer {
+    padding: $space-md $space-xl;
+    border-top: 1px solid $color-border-light;
+    background-color: $color-bg-light;
+    @include flex-between;
+  }
+}
+
+// 6. Admin Inventory Status
+.inventory-stock {
+  font-weight: $font-weight-semibold;
+
+  &--low {
+    color: $color-danger;
+  }
+
+  &--medium {
+    color: $color-warning;
+  }
+
+  &--good {
+    color: $color-success;
+  }
+}

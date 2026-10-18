@@ -1,0 +1,348 @@
+// ==========================================================================
+// Birmingham Food Basket - SCSS Mixins
+// ==========================================================================
+
+@use 'sass:map';
+@use 'sass:meta';
+@use 'variables' as vars;
+@use 'functions' as funcs;
+
+// --------------------------------------------------------------------------
+// 1. Responsive Breakpoint Mixins
+// --------------------------------------------------------------------------
+
+/// Media query min-width mixin
+/// @param {String|Number} $breakpoint - Token (sm, md, lg, xl, xxl) or custom length
+@mixin respond-to($breakpoint) {
+  @if map.has-key(vars.$breakpoints, $breakpoint) {
+    $breakpoint-value: map.get(vars.$breakpoints, $breakpoint);
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+  } @else if meta.type-of($breakpoint) == 'number' {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  } @else {
+    @warn "Invalid breakpoint `#{$breakpoint}`. Available keys: #{map.keys(vars.$breakpoints)}";
+  }
+}
+
+/// Media query max-width mixin
+/// @param {String|Number} $breakpoint - Token or custom length
+@mixin respond-below($breakpoint) {
+  @if map.has-key(vars.$breakpoints, $breakpoint) {
+    $breakpoint-value: map.get(vars.$breakpoints, $breakpoint) - 0.02px;
+    @media (max-width: $breakpoint-value) {
+      @content;
+    }
+  } @else if meta.type-of($breakpoint) == 'number' {
+    @media (max-width: ($breakpoint - 0.02px)) {
+      @content;
+    }
+  } @else {
+    @warn "Invalid breakpoint `#{$breakpoint}`.";
+  }
+}
+
+/// Media query between two breakpoints
+@mixin respond-between($lower, $upper) {
+  $min: if(map.has-key(vars.$breakpoints, $lower), map.get(vars.$breakpoints, $lower), $lower);
+  $max: if(map.has-key(vars.$breakpoints, $upper), map.get(vars.$breakpoints, $upper) - 0.02px, $upper - 0.02px);
+
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 2. Flexbox Helpers
+// --------------------------------------------------------------------------
+
+/// Quick flex centering (both horizontally and vertically)
+@mixin flex-center($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+
+/// Space-between layout with aligned items
+@mixin flex-between($align: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: space-between;
+}
+
+/// Vertical flex layout
+@mixin flex-column($align: stretch, $justify: flex-start) {
+  display: flex;
+  flex-direction: column;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+/// Inline flex centering
+@mixin inline-flex-center {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// --------------------------------------------------------------------------
+// 3. Grid Helpers
+// --------------------------------------------------------------------------
+
+/// Fixed column CSS Grid
+@mixin grid($columns: 1, $gap: vars.$space-md) {
+  display: grid;
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
+  gap: $gap;
+}
+
+/// Responsive auto-fitting CSS Grid
+@mixin grid-auto-fit($min-width: 260px, $gap: vars.$space-md) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $gap;
+}
+
+// --------------------------------------------------------------------------
+// 4. Container Mixin
+// --------------------------------------------------------------------------
+
+/// Centered container with responsive max-widths
+@mixin container($padding: vars.$space-md) {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $padding;
+  padding-right: $padding;
+
+  @include respond-to('sm') {
+    max-width: vars.$container-sm;
+    padding-left: vars.$space-lg;
+    padding-right: vars.$space-lg;
+  }
+  @include respond-to('md') {
+    max-width: vars.$container-md;
+  }
+  @include respond-to('lg') {
+    max-width: vars.$container-lg;
+  }
+  @include respond-to('xl') {
+    max-width: vars.$container-xl;
+  }
+  @include respond-to('xxl') {
+    max-width: vars.$container-xxl;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 5. Typography Mixins
+// --------------------------------------------------------------------------
+
+/// Typography preset for headings (h1 - h6)
+@mixin heading-style($level: 1) {
+  font-family: vars.$font-heading;
+  font-weight: vars.$font-weight-bold;
+  color: vars.$color-text-dark;
+  line-height: vars.$line-height-tight;
+  letter-spacing: vars.$letter-spacing-tight;
+
+  @if $level == 1 {
+    font-size: funcs.rem(28px);
+    @include respond-to('md') {
+      font-size: funcs.rem(36px);
+    }
+    @include respond-to('lg') {
+      font-size: vars.$font-size-4xl;
+    }
+  } @else if $level == 2 {
+    font-size: funcs.rem(24px);
+    @include respond-to('md') {
+      font-size: funcs.rem(28px);
+    }
+    @include respond-to('lg') {
+      font-size: vars.$font-size-3xl;
+    }
+  } @else if $level == 3 {
+    font-size: funcs.rem(20px);
+    @include respond-to('md') {
+      font-size: vars.$font-size-xl;
+    }
+    @include respond-to('lg') {
+      font-size: vars.$font-size-2xl;
+    }
+  } @else if $level == 4 {
+    font-size: funcs.rem(18px);
+    @include respond-to('md') {
+      font-size: vars.$font-size-lg;
+    }
+  } @else if $level == 5 {
+    font-size: vars.$font-size-md;
+    font-weight: vars.$font-weight-semibold;
+  } @else if $level == 6 {
+    font-size: vars.$font-size-base;
+    font-weight: vars.$font-weight-semibold;
+    text-transform: uppercase;
+    letter-spacing: vars.$letter-spacing-wider;
+  }
+}
+
+/// Typography preset for body copy
+@mixin body-style($size: 'base') {
+  font-family: vars.$font-primary;
+  color: vars.$color-text-body;
+  line-height: vars.$line-height-normal;
+
+  @if $size == 'sm' {
+    font-size: vars.$font-size-sm;
+    line-height: vars.$line-height-normal;
+  } @else if $size == 'lg' {
+    font-size: vars.$font-size-lg;
+    line-height: vars.$line-height-relaxed;
+  } @else {
+    font-size: vars.$font-size-base;
+    line-height: vars.$line-height-normal;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 6. Card & Elevation Mixins
+// --------------------------------------------------------------------------
+
+/// Elevation shadow styling
+@mixin card-shadow($elevation: 'md') {
+  @if $elevation == 'sm' {
+    box-shadow: vars.$shadow-sm;
+  } @else if $elevation == 'md' {
+    box-shadow: vars.$shadow-md;
+  } @else if $elevation == 'lg' {
+    box-shadow: vars.$shadow-lg;
+  } @else if $elevation == 'xl' {
+    box-shadow: vars.$shadow-xl;
+  } @else if $elevation == 'hover' {
+    box-shadow: vars.$shadow-hover;
+  } @else {
+    box-shadow: vars.$shadow-sm;
+  }
+  transition: box-shadow vars.$transition-duration-normal vars.$transition-timing-ease,
+              transform vars.$transition-duration-normal vars.$transition-timing-ease;
+}
+
+// --------------------------------------------------------------------------
+// 7. Component Base Mixins (Buttons, Inputs, Modals)
+// --------------------------------------------------------------------------
+
+/// Standard interactive button base styles
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: vars.$space-xs;
+  font-family: vars.$font-heading;
+  font-size: vars.$font-size-base;
+  font-weight: vars.$font-weight-semibold;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: vars.$radius-md;
+  padding: vars.$space-sm vars.$space-lg;
+  transition: vars.$transition-base;
+  outline: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    box-shadow: vars.$shadow-outline;
+  }
+
+  &:disabled,
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+/// Standard form control input styles
+@mixin input-base {
+  display: block;
+  width: 100%;
+  padding: vars.$space-sm vars.$space-md;
+  font-family: vars.$font-primary;
+  font-size: vars.$font-size-base;
+  font-weight: vars.$font-weight-normal;
+  line-height: vars.$line-height-normal;
+  color: vars.$color-text-dark;
+  background-color: vars.$color-white;
+  background-clip: padding-box;
+  border: 1px solid vars.$color-border-medium;
+  border-radius: vars.$radius-md;
+  transition: border-color vars.$transition-duration-fast vars.$transition-timing-ease,
+              box-shadow vars.$transition-duration-fast vars.$transition-timing-ease;
+  outline: none;
+
+  &::placeholder {
+    color: vars.$color-text-placeholder;
+    opacity: 1;
+  }
+
+  &:hover:not(:disabled):not(:focus) {
+    border-color: vars.$color-secondary-light;
+  }
+
+  &:focus {
+    border-color: vars.$color-primary;
+    box-shadow: vars.$shadow-outline;
+  }
+
+  &:disabled,
+  &[readonly] {
+    background-color: vars.$color-bg-light;
+    border-color: vars.$color-border;
+    color: vars.$color-text-light;
+    cursor: not-allowed;
+  }
+}
+
+// --------------------------------------------------------------------------
+// 8. Utility Mixins
+// --------------------------------------------------------------------------
+
+/// Truncate overflowing text with ellipsis
+/// @param {Number} $lines - Max lines before ellipsis (1 for single line)
+@mixin truncate-text($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/// Accessible screen-reader only hiding
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

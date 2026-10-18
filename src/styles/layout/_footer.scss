@@ -1,0 +1,168 @@
+// ==========================================================================
+// Birmingham Food Basket - Footer Component
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+.footer {
+  background-color: $color-bg-dark;
+  color: $color-text-light;
+  padding-top: $space-3xl;
+  padding-bottom: $space-xl;
+  margin-top: auto;
+  border-top: 4px solid $color-primary;
+
+  // Top Grid Area
+  &__grid {
+    @include grid(1, $space-2xl);
+    margin-bottom: $space-3xl;
+
+    @include respond-to('sm') {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include respond-to('lg') {
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: $space-3xl;
+    }
+  }
+
+  // Brand Column
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+
+    .footer-logo {
+      font-family: $font-heading;
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: $color-white;
+
+      span {
+        color: $color-accent;
+      }
+    }
+
+    .footer-description {
+      font-size: $font-size-sm;
+      line-height: $line-height-relaxed;
+      color: tint($color-bg-dark, 50%);
+      max-width: 360px;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: $space-xs;
+      font-size: $font-size-sm;
+      color: tint($color-bg-dark, 65%);
+    }
+  }
+
+  // Footer Navigation Sections
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+    color: $color-white;
+    letter-spacing: $letter-spacing-wide;
+    position: relative;
+    padding-bottom: $space-xs;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 2rem;
+      height: 2px;
+      background-color: $color-primary-light;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+
+    li a {
+      font-size: $font-size-sm;
+      color: tint($color-bg-dark, 60%);
+      transition: color $transition-duration-fast ease,
+                  transform $transition-duration-fast ease;
+      display: inline-block;
+
+      &:hover {
+        color: $color-accent;
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  // Social Links Row
+  &__socials {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    margin-top: $space-xs;
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: $radius-round;
+      background-color: shade($color-bg-dark, 30%);
+      color: $color-white;
+      transition: $transition-fast;
+
+      &:hover {
+        background-color: $color-primary;
+        color: $color-white;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  // Bottom Sub-Footer
+  &__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: $space-xl;
+    @include flex-between;
+    flex-direction: column;
+    gap: $space-md;
+    text-align: center;
+
+    @include respond-to('md') {
+      flex-direction: row;
+      text-align: left;
+    }
+
+    .copyright {
+      font-size: $font-size-xs;
+      color: tint($color-bg-dark, 45%);
+    }
+
+    .legal-links {
+      display: flex;
+      gap: $space-lg;
+
+      a {
+        font-size: $font-size-xs;
+        color: tint($color-bg-dark, 45%);
+
+        &:hover {
+          color: $color-white;
+        }
+      }
+    }
+  }
+}

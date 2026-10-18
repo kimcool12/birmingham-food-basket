@@ -1,0 +1,198 @@
+// ==========================================================================
+// Birmingham Food Basket - Card Components
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+// 1. Base Card Container
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: $color-white;
+  background-clip: border-box;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  @include card-shadow('sm');
+
+  &--interactive,
+  &--hover {
+    cursor: pointer;
+    transition: transform $transition-duration-normal $transition-timing-ease,
+                box-shadow $transition-duration-normal $transition-timing-ease,
+                border-color $transition-duration-normal $transition-timing-ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      @include card-shadow('hover');
+      border-color: $color-accent;
+    }
+  }
+
+  &--bordered {
+    border-width: 2px;
+  }
+
+  &--flush {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+}
+
+// 2. Card Sub-elements
+.card-header {
+  padding: $space-md $space-lg;
+  margin-bottom: 0;
+  background-color: transparent;
+  border-bottom: 1px solid $color-border-light;
+  @include flex-between;
+
+  .card-title {
+    margin-bottom: 0;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: $space-lg;
+
+  &--compact {
+    padding: $space-md;
+  }
+}
+
+.card-footer {
+  padding: $space-md $space-lg;
+  background-color: $color-bg-light;
+  border-top: 1px solid $color-border-light;
+  @include flex-between;
+}
+
+// 3. Card Image / Media Wrapper
+.card-image,
+.card-img-top {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: $color-bg-subtle;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-duration-slow ease;
+  }
+
+  .card:hover & img {
+    transform: scale(1.05);
+  }
+
+  // Floating badges inside image
+  .card-badge-top-left {
+    position: absolute;
+    top: $space-sm;
+    left: $space-sm;
+    z-index: 2;
+  }
+
+  .card-badge-top-right {
+    position: absolute;
+    top: $space-sm;
+    right: $space-sm;
+    z-index: 2;
+  }
+}
+
+// 4. Product Card Variation (Fresh Farm & Organic Basket Items)
+.product-card {
+  @extend .card;
+  @extend .card--hover;
+  height: 100%;
+
+  &__image-wrapper {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: $color-bg-subtle;
+    border-bottom: 1px solid $color-border-light;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $transition-duration-slow ease;
+    }
+  }
+
+  &:hover &__image-wrapper img {
+    transform: scale(1.06);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: $space-md;
+  }
+
+  &__category {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wider;
+    color: $color-secondary;
+    margin-bottom: $space-3xs;
+  }
+
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $color-text-dark;
+    margin-bottom: $space-2xs;
+    @include truncate-text(2);
+
+    a {
+      color: inherit;
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  &__unit {
+    font-size: $font-size-xs;
+    color: $color-text-light;
+    margin-bottom: $space-sm;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: $space-xs;
+  }
+
+  &__price-group {
+    display: flex;
+    align-items: baseline;
+    gap: $space-2xs;
+  }
+
+  &__price {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-primary-dark;
+  }
+
+  &__price-original {
+    font-size: $font-size-sm;
+    color: $color-text-light;
+    text-decoration: line-through;
+  }
+}

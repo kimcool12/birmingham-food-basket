@@ -1,0 +1,250 @@
+// ==========================================================================
+// Birmingham Food Basket - Shop Page Styles
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+.shop-page {
+  padding: $space-2xl 0 $space-4xl;
+
+  // 1. Breadcrumbs & Page Header
+  &__header {
+    margin-bottom: $space-2xl;
+
+    .page-title {
+      @include heading-style(2);
+      margin-bottom: $space-2xs;
+    }
+
+    .page-subtitle {
+      color: $color-text-light;
+      font-size: $font-size-base;
+    }
+  }
+
+  // 2. Main Two-Column Layout (Sidebar Filters + Main Catalog)
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-2xl;
+    align-items: start;
+
+    @include respond-to('lg') {
+      grid-template-columns: 280px 1fr;
+    }
+  }
+
+  // 3. Filters Sidebar
+  &__filters {
+    background-color: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-xl;
+    padding: $space-lg;
+    position: sticky;
+    top: 5.5rem;
+
+    @include card-shadow('xs');
+
+    .filter-header {
+      @include flex-between;
+      padding-bottom: $space-md;
+      margin-bottom: $space-md;
+      border-bottom: 1px solid $color-border-light;
+
+      h4 {
+        font-size: $font-size-md;
+        margin-bottom: 0;
+      }
+
+      .reset-btn {
+        font-size: $font-size-xs;
+        color: $color-primary;
+        font-weight: $font-weight-semibold;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .filter-group {
+      margin-bottom: $space-lg;
+      padding-bottom: $space-lg;
+      border-bottom: 1px solid $color-border-light;
+
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      &__title {
+        font-family: $font-heading;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        color: $color-text-dark;
+        margin-bottom: $space-sm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      &__options {
+        display: flex;
+        flex-direction: column;
+        gap: $space-xs;
+      }
+    }
+
+    // Price range inputs
+    .price-range-inputs {
+      display: flex;
+      align-items: center;
+      gap: $space-xs;
+
+      .form-input {
+        padding: $space-2xs $space-xs;
+        font-size: $font-size-sm;
+        text-align: center;
+      }
+
+      .separator {
+        color: $color-text-light;
+      }
+    }
+  }
+
+  // 4. Products Catalog Area
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-lg;
+  }
+
+  // 5. Toolbar (Search, Count, Sorting, View Toggle)
+  &__toolbar {
+    background-color: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    padding: $space-md;
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+
+    @include respond-to('md') {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 360px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: $space-md;
+      flex-wrap: wrap;
+
+      .item-count {
+        font-size: $font-size-sm;
+        color: $color-text-light;
+      }
+
+      .sort-select {
+        min-width: 160px;
+        font-size: $font-size-sm;
+      }
+    }
+  }
+
+  // 6. Active Filter Chips
+  &__active-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-xs;
+    align-items: center;
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: $space-2xs;
+      background-color: $color-primary-subtle;
+      color: $color-primary-dark;
+      padding: $space-3xs $space-sm;
+      border-radius: $radius-pill;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-medium;
+
+      .chip-remove {
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 14px;
+        height: 14px;
+        border-radius: $radius-round;
+        background-color: rgba(45, 106, 79, 0.2);
+        font-size: 10px;
+
+        &:hover {
+          background-color: $color-danger;
+          color: $color-white;
+        }
+      }
+    }
+  }
+
+  // 7. Products Grid
+  &__grid {
+    @include grid-auto-fit(240px, $space-lg);
+  }
+
+  // 8. Pagination Controls
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $space-2xs;
+    margin-top: $space-2xl;
+
+    .page-btn {
+      min-width: 2.5rem;
+      height: 2.5rem;
+      padding: 0 $space-xs;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      background-color: $color-white;
+      color: $color-text-dark;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-sm;
+      cursor: pointer;
+      transition: $transition-fast;
+
+      &:hover:not(:disabled) {
+        border-color: $color-primary;
+        color: $color-primary;
+        background-color: $color-primary-subtle;
+      }
+
+      &.is-active {
+        background-color: $color-primary;
+        border-color: $color-primary;
+        color: $color-white;
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

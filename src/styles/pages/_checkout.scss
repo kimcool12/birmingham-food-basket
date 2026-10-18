@@ -1,0 +1,272 @@
+// ==========================================================================
+// Birmingham Food Basket - Checkout Page Styles
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+.checkout-page {
+  padding: $space-2xl 0 $space-4xl;
+
+  // 1. Checkout Steps Progress Indicator
+  &__steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: $space-3xl;
+    gap: $space-md;
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: $space-xs;
+      color: $color-text-light;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+
+      .step-number {
+        width: 2rem;
+        height: 2rem;
+        border-radius: $radius-round;
+        border: 2px solid $color-border;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: $font-weight-bold;
+        color: $color-text-light;
+      }
+
+      &.is-active {
+        color: $color-primary;
+
+        .step-number {
+          background-color: $color-primary;
+          border-color: $color-primary;
+          color: $color-white;
+        }
+      }
+
+      &.is-completed {
+        color: $color-primary-dark;
+
+        .step-number {
+          background-color: $color-accent;
+          border-color: $color-primary;
+          color: $color-primary-dark;
+        }
+      }
+    }
+
+    .step-divider {
+      width: 3rem;
+      height: 2px;
+      background-color: $color-border;
+
+      @include respond-below('md') {
+        width: 1.5rem;
+      }
+    }
+  }
+
+  // 2. Main Two-Column Layout (Form on Left + Sticky Summary on Right)
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-2xl;
+    align-items: start;
+
+    @include respond-to('lg') {
+      grid-template-columns: 1.5fr 1fr;
+    }
+  }
+
+  // 3. Checkout Form Sections
+  &__form-section {
+    background-color: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-xl;
+    padding: $space-xl;
+    margin-bottom: $space-xl;
+    @include card-shadow('xs');
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-family: $font-heading;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      color: $color-text-dark;
+      margin-bottom: $space-lg;
+      padding-bottom: $space-xs;
+      border-bottom: 1px solid $color-border-light;
+      display: flex;
+      align-items: center;
+      gap: $space-xs;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $space-md;
+
+      @include respond-to('md') {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &--three-col {
+        @include respond-to('md') {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+    }
+  }
+
+  // 4. Delivery Timeslot Picker
+  .timeslot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: $space-sm;
+    margin-top: $space-xs;
+
+    .timeslot-card {
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      padding: $space-sm;
+      text-align: center;
+      cursor: pointer;
+      transition: $transition-fast;
+
+      .slot-time {
+        font-weight: $font-weight-semibold;
+        font-size: $font-size-sm;
+        color: $color-text-dark;
+      }
+
+      .slot-tag {
+        font-size: $font-size-xs;
+        color: $color-secondary;
+      }
+
+      &:hover {
+        border-color: $color-primary;
+        background-color: $color-primary-subtle;
+      }
+
+      &.is-selected {
+        border-color: $color-primary;
+        background-color: $color-primary-subtle;
+        box-shadow: $shadow-outline;
+      }
+    }
+  }
+
+  // 5. Order Summary Sidebar
+  &__summary {
+    background-color: $color-white;
+    border: 1px solid $color-border;
+    border-radius: $radius-xl;
+    padding: $space-xl;
+    position: sticky;
+    top: 5.5rem;
+    @include card-shadow('sm');
+
+    .summary-title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+      margin-bottom: $space-lg;
+      padding-bottom: $space-xs;
+      border-bottom: 1px solid $color-border-light;
+    }
+
+    // Basket Items Preview
+    .basket-items {
+      display: flex;
+      flex-direction: column;
+      gap: $space-md;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: $space-2xs;
+      margin-bottom: $space-lg;
+
+      .basket-item {
+        display: flex;
+        align-items: center;
+        gap: $space-sm;
+
+        .item-thumb {
+          width: 3.5rem;
+          height: 3.5rem;
+          border-radius: $radius-md;
+          object-fit: cover;
+          background-color: $color-bg-subtle;
+        }
+
+        .item-details {
+          flex: 1;
+
+          .item-name {
+            font-size: $font-size-sm;
+            font-weight: $font-weight-medium;
+            color: $color-text-dark;
+            @include truncate-text(1);
+          }
+
+          .item-qty {
+            font-size: $font-size-xs;
+            color: $color-text-light;
+          }
+        }
+
+        .item-price {
+          font-size: $font-size-sm;
+          font-weight: $font-weight-semibold;
+          color: $color-text-dark;
+        }
+      }
+    }
+
+    // Promo Code Input
+    .coupon-box {
+      display: flex;
+      gap: $space-xs;
+      margin-bottom: $space-lg;
+      padding-bottom: $space-lg;
+      border-bottom: 1px solid $color-border-light;
+
+      .form-input {
+        font-size: $font-size-sm;
+        text-transform: uppercase;
+      }
+    }
+
+    // Price Calculations
+    .price-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: $space-xs;
+      margin-bottom: $space-lg;
+
+      .row-item {
+        @include flex-between;
+        font-size: $font-size-sm;
+        color: $color-text-muted;
+
+        &--total {
+          margin-top: $space-xs;
+          padding-top: $space-sm;
+          border-top: 2px dashed $color-border;
+          font-size: $font-size-lg;
+          font-weight: $font-weight-bold;
+          color: $color-primary-dark;
+        }
+      }
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: $space-md;
+      font-size: $font-size-base;
+    }
+  }
+}
