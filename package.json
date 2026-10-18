@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "create-admin": "node scripts/create-admin.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",
