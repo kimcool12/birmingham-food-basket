@@ -1,0 +1,48 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid #2f7d32;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #1b4d1e;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #1b4d1e;
+    outline-offset: 2px;
+  }
+}
+
+.input {
+  width: 4rem;
+  height: 2.75rem;
+  border: 1px solid #b9c2b5;
+  border-radius: 0.5rem;
+  text-align: center;
+  font: inherit;
+  font-size: 1rem;
+
+  &:focus-visible {
+    outline: 3px solid #2f7d32;
+    outline-offset: 1px;
+  }
+}
+
+.unit {
+  font-weight: 600;
+  color: #5a5a5a;
+}

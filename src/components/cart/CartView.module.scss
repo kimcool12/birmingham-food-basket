@@ -1,0 +1,139 @@
+.layout {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+
+  @media (min-width: 52rem) {
+    grid-template-columns: 1fr 20rem;
+  }
+}
+
+.list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #dfe5dc;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.name {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+}
+
+.line {
+  margin: 0;
+  color: #3d3d3d;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.remove {
+  min-height: 2.75rem;
+  padding: 0 0.9rem;
+  border: 1px solid #8a1c14;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #8a1c14;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 3px solid #8a1c14;
+    outline-offset: 2px;
+  }
+}
+
+.summary {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #dfe5dc;
+  border-radius: 0.75rem;
+  background: #fff;
+
+  h2 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.hint {
+  margin: 0;
+  color: #5a5a5a;
+  font-size: 0.9rem;
+}
+
+.primary,
+.secondary {
+  display: block;
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 3px solid #1b4d1e;
+    outline-offset: 2px;
+  }
+}
+
+.primary {
+  background: #2f7d32;
+  color: #fff;
+}
+
+.secondary {
+  border: 1px solid #2f7d32;
+  color: #1b4d1e;
+}
+
+.clear {
+  padding: 0.6rem;
+  border: 0;
+  background: none;
+  color: #8a1c14;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.empty {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  color: #5a5a5a;
+}
+
+.note {
+  padding: 2rem 0;
+  color: #5a5a5a;
+}

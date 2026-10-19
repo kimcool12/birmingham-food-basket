@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { useCartCount } from "../../lib/cart-store";
 import {
   ShoppingCart,
   Bell,
-  Menu,
   X,
-  User,
   LogOut,
   LogIn,
   ShoppingBag,
@@ -18,6 +17,7 @@ import {
 export default function CustomerHeader({ user }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const cartCount = useCartCount();
 
   // Close mobile drawer on route change
   useEffect(() => {
@@ -66,7 +66,11 @@ export default function CustomerHeader({ user }) {
     <header className="header" role="banner">
       <div className="container header__inner">
         {/* Brand / Logo */}
-        <Link href="/" className="header__logo" aria-label="Birmingham Food Basket - Home">
+        <Link
+          href="/"
+          className="header__logo"
+          aria-label="Birmingham Food Basket - Home"
+        >
           <ShoppingBag className="header__logo-icon" aria-hidden="true" />
           <span className="header__logo-text">
             Birmingham <span>Food Basket</span>
@@ -101,15 +105,15 @@ export default function CustomerHeader({ user }) {
             </span>
           </Link>
 
-          {/* Cart Link with 0 badge */}
+          {/* Cart Link with live item count */}
           <Link
             href="/cart"
             className="header__action-btn"
-            aria-label="Shopping Cart, 0 items"
+            aria-label={`Shopping Cart, ${cartCount} ${cartCount === 1 ? "item" : "items"}`}
           >
             <ShoppingCart aria-hidden="true" />
             <span className="count-badge" aria-hidden="true">
-              0
+              {cartCount}
             </span>
           </Link>
 
@@ -150,7 +154,9 @@ export default function CustomerHeader({ user }) {
             type="button"
             className={`hamburger header__toggle ${mobileOpen ? "is-open" : ""}`}
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              mobileOpen ? "Close navigation menu" : "Open navigation menu"
+            }
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation"
           >
@@ -207,7 +213,7 @@ export default function CustomerHeader({ user }) {
             >
               <span>{link.label}</span>
               {link.href === "/cart" && (
-                <span className="badge badge-primary ml-auto">0</span>
+                <span className="badge badge-primary ml-auto">{cartCount}</span>
               )}
               {link.href === "/notifications" && (
                 <span className="badge badge-danger ml-auto">0</span>
