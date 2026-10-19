@@ -35,6 +35,7 @@ enum OrderStatus {
 }
 
 enum NotificationType {
+  ORDER_PLACED
   ORDER_CONFIRMED
   ORDER_PREPARING
   ORDER_READY
