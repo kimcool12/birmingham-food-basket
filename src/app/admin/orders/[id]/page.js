@@ -11,6 +11,7 @@ import {
   money,
 } from "../../../../lib/order-status";
 import { updateOrderStatus } from "../actions";
+import DeliveryPanel from "./DeliveryPanel";
 import styles from "./admin-order.module.scss";
 
 export const metadata = { title: "Order | Admin" };
@@ -148,7 +149,7 @@ export default async function AdminOrderPage({ params, searchParams }) {
             </p>
           )}
         </section>
-
+        <DeliveryPanel order={order} returnTo={returnTo} />
         <section
           className={`${styles.card} ${styles.wide}`}
           aria-labelledby="items"
