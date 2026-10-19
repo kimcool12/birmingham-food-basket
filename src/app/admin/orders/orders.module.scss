@@ -1,0 +1,156 @@
+.page {
+  padding: 1.5rem;
+}
+
+.title {
+  margin: 0 0 1rem;
+}
+
+.error,
+.notice {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.5rem;
+}
+
+.error {
+  background: #fdecea;
+  color: #8a1c14;
+}
+
+.notice {
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  input,
+  select {
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #b9c2b5;
+    border-radius: 0.5rem;
+    font: inherit;
+    background: #fff;
+
+    &:focus-visible {
+      outline: 3px solid #2f7d32;
+      outline-offset: 1px;
+    }
+  }
+
+  input[type="search"] {
+    flex: 1 1 16rem;
+  }
+}
+
+.field {
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.8rem;
+  color: #5a5a5a;
+}
+
+.btn,
+.filters button {
+  align-self: end;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid #2f7d32;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #1b4d1e;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 3px solid #1b4d1e;
+    outline-offset: 2px;
+  }
+}
+
+.count {
+  margin: 0 0 0.6rem;
+  color: #5a5a5a;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 70rem;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 0.65rem 0.6rem;
+    text-align: left;
+    border-bottom: 1px solid #dfe5dc;
+    vertical-align: top;
+  }
+
+  th {
+    white-space: nowrap;
+  }
+}
+
+.small {
+  display: block;
+  color: #5a5a5a;
+  font-size: 0.85rem;
+}
+
+.address {
+  max-width: 14rem;
+}
+
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+
+  select {
+    padding: 0.4rem 0.5rem;
+    border: 1px solid #b9c2b5;
+    border-radius: 0.5rem;
+    background: #fff;
+    font: inherit;
+  }
+
+  button {
+    padding: 0.4rem 0.7rem;
+    border: 1px solid #2f7d32;
+    border-radius: 0.5rem;
+    background: #fff;
+    color: #1b4d1e;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+.final {
+  color: #5a5a5a;
+  font-size: 0.85rem;
+}
+
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: #5a5a5a;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}

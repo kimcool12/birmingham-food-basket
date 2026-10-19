@@ -1,0 +1,63 @@
+.box {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.confirm {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.danger,
+.keep {
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  border-radius: 0.5rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #1b4d1e;
+    outline-offset: 2px;
+  }
+}
+
+.danger {
+  border: 1px solid #8a1c14;
+  background: #8a1c14;
+  color: #fff;
+}
+
+.keep {
+  border: 1px solid #2f7d32;
+  background: #fff;
+  color: #1b4d1e;
+}
+
+.error {
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.5rem;
+  background: #fdecea;
+  color: #8a1c14;
+}
+
+.ok {
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.5rem;
+  background: #e8f5e9;
+  color: #1b5e20;
+}

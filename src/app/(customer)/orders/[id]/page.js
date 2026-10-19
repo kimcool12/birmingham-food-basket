@@ -4,6 +4,8 @@ import prisma from "../../../../lib/prisma";
 import { requireUser } from "../../../../lib/permissions";
 import StatusBadge from "../../../../components/orders/StatusBadge";
 import OrderTimeline from "../../../../components/orders/OrderTimeline";
+import { canCustomerCancel } from "../../../../lib/order-admin";
+import CancelOrder from "./CancelOrder";
 import {
   formatDate,
   formatDateTime,
@@ -122,6 +124,17 @@ export default async function OrderDetailPage({ params }) {
             <strong>{money(order.total)}</strong>
           </p>
         </section>
+
+        {canCustomerCancel(order.status) && (
+          <section
+            className={`${styles.card} ${styles.wide}`}
+            aria-labelledby="cancel"
+          >
+            <h2 id="cancel">Cancel this order</h2>
+            <p>You can cancel until we start preparing your order.</p>
+            <CancelOrder orderId={order.id} />
+          </section>
+        )}
 
         {customRequests.length > 0 && (
           <section
