@@ -2,11 +2,16 @@
 
 import { useSyncExternalStore } from "react";
 
-const KEY = "bfb-cart-v1";
+const PREFIX = "bfb-cart-v2:";
 const MAX_QTY = 999;
 const EMPTY = [];
 const listeners = new Set();
+let owner = "guest";
 let cache = null;
+
+function storageKey() {
+  return PREFIX + owner;
+}
 
 function isValid(item) {
   return Boolean(
@@ -23,7 +28,7 @@ function isValid(item) {
 function load() {
   if (cache) return cache;
   try {
-    const raw = window.localStorage.getItem(KEY);
+    const raw = window.localStorage.getItem(storageKey());
     const parsed = raw ? JSON.parse(raw) : [];
     cache = Array.isArray(parsed) ? parsed.filter(isValid) : [];
   } catch {
@@ -35,7 +40,7 @@ function load() {
 function save(items) {
   cache = items;
   try {
-    window.localStorage.setItem(KEY, JSON.stringify(items));
+    window.localStorage.setItem(storageKey(), JSON.stringify(items));
   } catch {
     // Storage can be blocked; the cart then lives only until the page closes.
   }
@@ -45,7 +50,7 @@ function save(items) {
 function subscribe(listener) {
   listeners.add(listener);
   const onStorage = (event) => {
-    if (event.key === KEY || event.key === null) {
+    if (event.key === storageKey() || event.key === null) {
       cache = null;
       listener();
     }
@@ -61,6 +66,16 @@ function clamp(value) {
   const n = Math.floor(Number(value));
   if (!Number.isFinite(n)) return 1;
   return Math.min(MAX_QTY, Math.max(1, n));
+}
+
+// Tells the cart whose cart it is. Each account gets its own saved cart in this browser.
+export function setCartOwner(email) {
+  if (typeof window === "undefined") return;
+  const next = email ? String(email).trim().toLowerCase() : "guest";
+  if (next === owner) return;
+  owner = next;
+  cache = null;
+  queueMicrotask(() => listeners.forEach((listener) => listener()));
 }
 
 export function useCart() {

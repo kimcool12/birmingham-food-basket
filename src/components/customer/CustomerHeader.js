@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { useCartCount } from "../../lib/cart-store";
+import { useCartCount, setCartOwner } from "../../lib/cart-store";
 import {
   ShoppingCart,
   Bell,
@@ -17,6 +17,7 @@ import {
 export default function CustomerHeader({ user }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  setCartOwner(user?.email);
   const cartCount = useCartCount();
 
   // Close mobile drawer on route change

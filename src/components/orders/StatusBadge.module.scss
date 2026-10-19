@@ -1,0 +1,44 @@
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.ORDER_PLACED {
+  color: #1f4e8c;
+  background: #eaf2fc;
+}
+
+.CONFIRMED {
+  color: #1b5e20;
+  background: #e8f5e9;
+}
+
+.PREPARING {
+  color: #8a5a00;
+  background: #fff6e0;
+}
+
+.READY {
+  color: #5b2a86;
+  background: #f3eafb;
+}
+
+.OUT_FOR_DELIVERY {
+  color: #0b6b6b;
+  background: #e2f6f6;
+}
+
+.DELIVERED {
+  color: #14532d;
+  background: #d9f2e0;
+}
+
+.CANCELLED {
+  color: #8a1c14;
+  background: #fdecea;
+}
