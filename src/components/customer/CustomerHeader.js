@@ -14,7 +14,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 
-export default function CustomerHeader({ user }) {
+export default function CustomerHeader({ user, unreadCount = 0 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   setCartOwner(user?.email);
@@ -98,11 +98,11 @@ export default function CustomerHeader({ user }) {
           <Link
             href="/notifications"
             className="header__action-btn header__action-btn--notification"
-            aria-label="Notifications, 0 unread"
+            aria-label={`Notifications, ${unreadCount} unread`}
           >
             <Bell aria-hidden="true" />
             <span className="count-badge" aria-hidden="true">
-              0
+              {unreadCount > 99 ? "99+" : unreadCount}
             </span>
           </Link>
 
@@ -217,7 +217,9 @@ export default function CustomerHeader({ user }) {
                 <span className="badge badge-primary ml-auto">{cartCount}</span>
               )}
               {link.href === "/notifications" && (
-                <span className="badge badge-danger ml-auto">0</span>
+                <span className="badge badge-danger ml-auto">
+                  {unreadCount > 99 ? "99+" : unreadCount}
+                </span>
               )}
             </Link>
           ))}

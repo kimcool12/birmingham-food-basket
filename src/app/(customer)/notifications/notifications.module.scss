@@ -1,0 +1,140 @@
+.page {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2.5rem;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.count {
+  margin: 0;
+  color: #5a5a5a;
+}
+
+.btn,
+.tools button {
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  border: 1px solid #2f7d32;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #1b4d1e;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 3px solid #1b4d1e;
+    outline-offset: 2px;
+  }
+}
+
+.list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid #dfe5dc;
+  border-left: 5px solid #cfd8cc;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.unread {
+  border-left-color: #2f7d32;
+  background: #f3faf3;
+}
+
+.tag {
+  justify-self: start;
+  padding: 0.1rem 0.6rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.tagUnread {
+  color: #1b5e20;
+}
+
+.tagRead {
+  color: #5a5a5a;
+}
+
+.message {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  color: #5a5a5a;
+  font-size: 0.9rem;
+
+  form {
+    margin: 0;
+  }
+
+  button {
+    padding: 0.3rem 0.8rem;
+    border: 1px solid #2f7d32;
+    border-radius: 0.5rem;
+    background: #fff;
+    color: #1b4d1e;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  a {
+    color: #1b4d1e;
+    font-weight: 600;
+  }
+}
+
+.empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: #5a5a5a;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
