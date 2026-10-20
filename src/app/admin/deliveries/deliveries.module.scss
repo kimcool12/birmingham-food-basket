@@ -1,0 +1,183 @@
+.page {
+  padding: 1.5rem;
+}
+
+.title {
+  margin: 0 0 1rem;
+}
+
+.error,
+.notice {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.5rem;
+}
+
+.error {
+  background: #fdecea;
+  color: #8a1c14;
+}
+
+.notice {
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tab {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #2f7d32;
+  border-radius: 999px;
+  background: #fff;
+  color: #1b4d1e;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:focus-visible {
+    outline: 3px solid #1b4d1e;
+    outline-offset: 2px;
+  }
+}
+
+.tabActive {
+  background: #2f7d32;
+  color: #fff;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+
+  input[type="search"] {
+    min-width: 16rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #b9c2b5;
+    border-radius: 0.5rem;
+    font: inherit;
+
+    &:focus-visible {
+      outline: 3px solid #2f7d32;
+      outline-offset: 1px;
+    }
+  }
+}
+
+.btn,
+.filters button,
+.actions button {
+  min-height: 2.4rem;
+  padding: 0 0.9rem;
+  border: 1px solid #2f7d32;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #1b4d1e;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 3px solid #1b4d1e;
+    outline-offset: 2px;
+  }
+}
+
+.count {
+  margin: 0 0 0.6rem;
+  color: #5a5a5a;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 80rem;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 0.65rem 0.6rem;
+    text-align: left;
+    border-bottom: 1px solid #dfe5dc;
+    vertical-align: top;
+  }
+
+  th {
+    white-space: nowrap;
+  }
+}
+
+.small {
+  display: block;
+  color: #5a5a5a;
+  font-size: 0.85rem;
+}
+
+.address {
+  max-width: 13rem;
+}
+
+.actions {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 17rem;
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0;
+  }
+
+  input,
+  select {
+    padding: 0.4rem 0.5rem;
+    border: 1px solid #b9c2b5;
+    border-radius: 0.5rem;
+    font: inherit;
+    font-size: 0.9rem;
+    background: #fff;
+  }
+
+  input[name="time"] {
+    width: 9rem;
+  }
+}
+
+.primary {
+  background: #2f7d32 !important;
+  color: #fff !important;
+}
+
+.final {
+  color: #5a5a5a;
+  font-size: 0.85rem;
+}
+
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: #5a5a5a;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
