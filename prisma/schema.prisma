@@ -272,3 +272,9 @@ model OrderStatusHistory {
   @@index([orderId])
   @@index([changedById])
 }
+
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

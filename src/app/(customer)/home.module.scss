@@ -161,3 +161,22 @@
   text-align: center;
   color: #5a5a5a;
 }
+
+.info {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #dfe5dc;
+  border-left: 5px solid #2f7d32;
+  border-radius: 0.75rem;
+  background: #fff;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: #1b4d1e;
+    font-weight: 700;
+  }
+}

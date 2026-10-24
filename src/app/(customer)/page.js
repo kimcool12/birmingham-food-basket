@@ -2,15 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import prisma from '../../lib/prisma';
 import ProductCard from '../../components/products/ProductCard';
+import { getSettings } from '../../lib/settings';
+import { whatsappLink } from '../../lib/whatsapp';
 import styles from './home.module.scss';
 
 const TITLE = 'Birmingham Food Basket';
 const DESCRIPTION =
-  'Order vegetables, meat, poultry, fish and groceries in wholesale and retail quantities.';
-
-// Edit the two lines below to change the words on the home page banner.
-const HERO_HEADING = 'Birmingham Food Basket';
-const HERO_TEXT =
   'Order vegetables, meat, poultry, fish and groceries in wholesale and retail quantities.';
 
 export const metadata = {
@@ -20,7 +17,8 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-  const [categories, rows] = await Promise.all([
+  const [settings, categories, rows] = await Promise.all([
+    getSettings(prisma),
     prisma.category.findMany({
       where: { isActive: true },
       orderBy: [{ sortOrder: 'asc' }, { name: 'asc' }],
@@ -52,6 +50,8 @@ export default async function HomePage() {
     image: p.image,
   }));
 
+  const contactLink = whatsappLink(settings.contact_whatsapp, '');
+
   return (
     <div className={styles.page}>
       <section className={styles.hero} aria-labelledby="hero-title">
@@ -65,8 +65,8 @@ export default async function HomePage() {
         />
         <div className={styles.heroOverlay} aria-hidden="true" />
         <div className={styles.heroContent}>
-          <h1 id="hero-title">{HERO_HEADING}</h1>
-          <p>{HERO_TEXT}</p>
+          <h1 id="hero-title">{settings.hero_heading}</h1>
+          <p>{settings.hero_text}</p>
           <div className={styles.actions}>
             <Link href="/shop" className={styles.primary}>
               Shop now
@@ -77,6 +77,20 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {(settings.delivery_info || contactLink) && (
+        <section className={styles.info} aria-label="Delivery and contact information">
+          {settings.delivery_info && <p>{settings.delivery_info}</p>}
+          {contactLink && (
+            <p>
+              Questions?{' '}
+              <a href={contactLink} target="_blank" rel="noopener noreferrer">
+                Message us on WhatsApp
+              </a>
+            </p>
+          )}
+        </section>
+      )}
 
       {categories.length > 0 && (
         <section aria-labelledby="cats">

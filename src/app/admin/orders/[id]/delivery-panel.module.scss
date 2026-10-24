@@ -69,3 +69,43 @@
   color: #5a5a5a;
   font-size: 0.85rem;
 }
+
+.whatsapp {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eef1ec;
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.6rem;
+    padding: 0 1rem;
+    border: 1px solid #2f7d32;
+    border-radius: 0.5rem;
+    background: #fff;
+    color: #1b4d1e;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:focus-visible {
+      outline: 3px solid #1b4d1e;
+      outline-offset: 2px;
+    }
+  }
+}
