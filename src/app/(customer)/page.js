@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import prisma from '../../lib/prisma';
 import ProductCard from '../../components/products/ProductCard';
@@ -5,6 +6,11 @@ import styles from './home.module.scss';
 
 const TITLE = 'Birmingham Food Basket';
 const DESCRIPTION =
+  'Order vegetables, meat, poultry, fish and groceries in wholesale and retail quantities.';
+
+// Edit the two lines below to change the words on the home page banner.
+const HERO_HEADING = 'Birmingham Food Basket';
+const HERO_TEXT =
   'Order vegetables, meat, poultry, fish and groceries in wholesale and retail quantities.';
 
 export const metadata = {
@@ -49,15 +55,26 @@ export default async function HomePage() {
   return (
     <div className={styles.page}>
       <section className={styles.hero} aria-labelledby="hero-title">
-        <h1 id="hero-title">{TITLE}</h1>
-        <p>{DESCRIPTION}</p>
-        <div className={styles.actions}>
-          <Link href="/shop" className={styles.primary}>
-            Shop now
-          </Link>
-          <Link href="/categories" className={styles.secondary}>
-            Browse categories
-          </Link>
+        <Image
+          src="/images/hero.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className={styles.heroImage}
+        />
+        <div className={styles.heroOverlay} aria-hidden="true" />
+        <div className={styles.heroContent}>
+          <h1 id="hero-title">{HERO_HEADING}</h1>
+          <p>{HERO_TEXT}</p>
+          <div className={styles.actions}>
+            <Link href="/shop" className={styles.primary}>
+              Shop now
+            </Link>
+            <Link href="/categories" className={styles.secondary}>
+              Browse categories
+            </Link>
+          </div>
         </div>
       </section>
 
