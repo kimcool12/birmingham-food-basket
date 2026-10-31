@@ -1,62 +1,69 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useCartCount, setCartOwner } from "../../lib/cart-store";
-import {
-  ShoppingCart,
-  Bell,
-  X,
-  LogOut,
-  LogIn,
-  ShoppingBag,
-} from "lucide-react";
+import { ShoppingCart, Bell, LogOut, LogIn, ShoppingBag } from "lucide-react";
+import MobileMenu from "./MobileMenu";
+import "./header-fix.scss";
+
+// Cart, Notifications and Profile have their own icons in the bar, so the bar only needs the
+// main browsing links. The menu on small screens still lists every link.
+const navLinks = [
+  { label: "Home", href: "/", inBar: true },
+  { label: "Shop", href: "/shop", inBar: true },
+  { label: "Categories", href: "/categories", inBar: true },
+  { label: "Cart", href: "/cart", inBar: false },
+  { label: "My Orders", href: "/orders", inBar: true },
+  { label: "Notifications", href: "/notifications", inBar: false },
+  { label: "Profile", href: "/profile", inBar: false },
+];
 
 export default function CustomerHeader({ user, unreadCount = 0 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const toggleRef = useRef(null);
   const pathname = usePathname();
   setCartOwner(user?.email);
   const cartCount = useCartCount();
 
-  // Close mobile drawer on route change
+  function closeMenu() {
+    setMobileOpen(false);
+    toggleRef.current?.focus();
+  }
+
+  // Close the menu when the page changes
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
 
-  // Close mobile menu on Escape key
+  // Close the menu with the Escape key
   useEffect(() => {
     function handleKeyDown(e) {
-      if (e.key === "Escape" && mobileOpen) {
-        setMobileOpen(false);
-      }
+      if (e.key === "Escape" && mobileOpen) closeMenu();
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileOpen]);
 
-  // Lock body scroll when mobile menu is open
+  // Close the menu if the window becomes wide enough for the full bar
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    const query = window.matchMedia("(min-width: 1024px)");
+    function handleChange(e) {
+      if (e.matches) setMobileOpen(false);
     }
+    query.addEventListener("change", handleChange);
+    return () => query.removeEventListener("change", handleChange);
+  }, []);
+
+  // Stop the page behind the menu from scrolling
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [mobileOpen]);
-
-  const navLinks = [
-    { label: "Home", href: "/" },
-    { label: "Shop", href: "/shop" },
-    { label: "Categories", href: "/categories" },
-    { label: "Cart", href: "/cart" },
-    { label: "My Orders", href: "/orders" },
-    { label: "Notifications", href: "/notifications" },
-    { label: "Profile", href: "/profile" },
-  ];
 
   const isActive = (href) => {
     if (href === "/") return pathname === "/";
@@ -67,11 +74,7 @@ export default function CustomerHeader({ user, unreadCount = 0 }) {
     <header className="header" role="banner">
       <div className="container header__inner">
         {/* Brand / Logo */}
-        <Link
-          href="/"
-          className="header__logo"
-          aria-label="Birmingham Food Basket - Home"
-        >
+        <Link href="/" className="header__logo" aria-label="Birmingham Food Basket - Home">
           <ShoppingBag className="header__logo-icon" aria-hidden="true" />
           <span className="header__logo-text">
             Birmingham <span>Food Basket</span>
@@ -80,21 +83,22 @@ export default function CustomerHeader({ user, unreadCount = 0 }) {
 
         {/* Desktop Navigation */}
         <nav className="header__nav" aria-label="Main navigation">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`nav-link ${isActive(link.href) ? "active" : ""}`}
-              aria-current={isActive(link.href) ? "page" : undefined}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks
+            .filter((link) => link.inBar)
+            .map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`nav-link ${isActive(link.href) ? "active" : ""}`}
+                aria-current={isActive(link.href) ? "page" : undefined}
+              >
+                {link.label}
+              </Link>
+            ))}
         </nav>
 
         {/* Header Actions */}
         <div className="header__actions">
-          {/* Notifications Link with 0 badge */}
           <Link
             href="/notifications"
             className="header__action-btn header__action-btn--notification"
@@ -106,7 +110,6 @@ export default function CustomerHeader({ user, unreadCount = 0 }) {
             </span>
           </Link>
 
-          {/* Cart Link with live item count */}
           <Link
             href="/cart"
             className="header__action-btn"
@@ -118,14 +121,13 @@ export default function CustomerHeader({ user, unreadCount = 0 }) {
             </span>
           </Link>
 
-          {/* Session Authentication: Log in or Log out */}
           {user ? (
             <div className="header__user-menu">
               <Link
                 href="/profile"
                 className="user-avatar"
                 title={user.name || user.email}
-                aria-label={`Signed in as ${user.name || user.email}`}
+                aria-label={`Signed in as ${user.name || user.email}. Open your profile`}
               >
                 {(user.name || user.email || "U").charAt(0).toUpperCase()}
               </Link>
@@ -150,116 +152,32 @@ export default function CustomerHeader({ user, unreadCount = 0 }) {
             </Link>
           )}
 
-          {/* Mobile Menu Hamburger Toggle */}
+          {/* Menu button: tablets and phones only */}
           <button
+            ref={toggleRef}
             type="button"
-            className={`hamburger header__toggle ${mobileOpen ? "is-open" : ""}`}
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={
-              mobileOpen ? "Close navigation menu" : "Open navigation menu"
-            }
+            className="bfb-menu-button"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
             aria-expanded={mobileOpen}
-            aria-controls="mobile-navigation"
+            aria-controls="mobile-menu"
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            <span />
+            <span />
+            <span />
           </button>
         </div>
       </div>
 
-      {/* Mobile Off-canvas Navigation */}
-      <div
-        className={`mobile-nav-backdrop ${mobileOpen ? "is-open" : ""}`}
-        onClick={() => setMobileOpen(false)}
-        aria-hidden="true"
+      <MobileMenu
+        open={mobileOpen}
+        onClose={closeMenu}
+        links={navLinks}
+        isActive={isActive}
+        user={user}
+        cartCount={cartCount}
+        unreadCount={unreadCount}
       />
-
-      <nav
-        id="mobile-navigation"
-        className={`mobile-nav ${mobileOpen ? "is-open" : ""}`}
-        aria-label="Mobile navigation"
-        aria-hidden={!mobileOpen}
-      >
-        <div className="mobile-nav__header">
-          <Link
-            href="/"
-            className="header__logo"
-            onClick={() => setMobileOpen(false)}
-            aria-label="Birmingham Food Basket"
-          >
-            <ShoppingBag className="header__logo-icon" aria-hidden="true" />
-            <span className="header__logo-text">
-              Birmingham <span>Food Basket</span>
-            </span>
-          </Link>
-          <button
-            type="button"
-            className="btn-icon btn-icon--sm"
-            onClick={() => setMobileOpen(false)}
-            aria-label="Close mobile navigation menu"
-          >
-            <X aria-hidden="true" />
-          </button>
-        </div>
-
-        <div className="mobile-nav__body">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`nav-link ${isActive(link.href) ? "active is-active" : ""}`}
-              onClick={() => setMobileOpen(false)}
-              aria-current={isActive(link.href) ? "page" : undefined}
-            >
-              <span>{link.label}</span>
-              {link.href === "/cart" && (
-                <span className="badge badge-primary ml-auto">{cartCount}</span>
-              )}
-              {link.href === "/notifications" && (
-                <span className="badge badge-danger ml-auto">
-                  {unreadCount > 99 ? "99+" : unreadCount}
-                </span>
-              )}
-            </Link>
-          ))}
-        </div>
-
-        <div className="mobile-nav__footer">
-          {user ? (
-            <>
-              <div className="d-flex align-center gap-sm mb-sm">
-                <span className="user-avatar">
-                  {(user.name || user.email || "U").charAt(0).toUpperCase()}
-                </span>
-                <span className="text-sm font-semibold truncate">
-                  {user.name || user.email}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileOpen(false);
-                  signOut({ callbackUrl: "/login" });
-                }}
-                className="btn btn-outline btn-block"
-              >
-                <LogOut className="icon" aria-hidden="true" />
-                <span>Log out</span>
-              </button>
-            </>
-          ) : (
-            <Link
-              href="/login"
-              className="btn btn-primary btn-block text-center"
-              onClick={() => setMobileOpen(false)}
-            >
-              <LogIn className="icon" aria-hidden="true" />
-              <span>Log in</span>
-            </Link>
-          )}
-        </div>
-      </nav>
     </header>
   );
 }
